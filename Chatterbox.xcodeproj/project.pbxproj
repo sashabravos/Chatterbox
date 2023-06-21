@@ -20,6 +20,8 @@
 		0367493F2A435DEF001CFFBF /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367493E2A435DEF001CFFBF /* NewConversationViewController.swift */; };
 		036749412A435E00001CFFBF /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036749402A435E00001CFFBF /* ProfileViewController.swift */; };
 		036749442A437187001CFFBF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036749432A437187001CFFBF /* Extensions.swift */; };
+		036749482A43A132001CFFBF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 036749472A43A132001CFFBF /* GoogleService-Info.plist */; };
+		BD378A75D9FB8C5830F676C9 /* Pods_Chatterbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82FB6EE4AEBE5546F5EB365B /* Pods_Chatterbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,10 @@
 		0367493E2A435DEF001CFFBF /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		036749402A435E00001CFFBF /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		036749432A437187001CFFBF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		036749472A43A132001CFFBF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		82FB6EE4AEBE5546F5EB365B /* Pods_Chatterbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatterbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A938A105EDA17B27D0B3F73F /* Pods-Chatterbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatterbox.debug.xcconfig"; path = "Target Support Files/Pods-Chatterbox/Pods-Chatterbox.debug.xcconfig"; sourceTree = "<group>"; };
+		DE6ED32DECA952E9FAA68CF5 /* Pods-Chatterbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatterbox.release.xcconfig"; path = "Target Support Files/Pods-Chatterbox/Pods-Chatterbox.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD378A75D9FB8C5830F676C9 /* Pods_Chatterbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +63,8 @@
 			children = (
 				0367491B2A43553F001CFFBF /* Chatterbox */,
 				0367491A2A43553F001CFFBF /* Products */,
+				EAD489C5FFAAA9B49FC7F938 /* Pods */,
+				EE2D1CFACA20C78D1C3FC10B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,6 +79,7 @@
 		0367491B2A43553F001CFFBF /* Chatterbox */ = {
 			isa = PBXGroup;
 			children = (
+				036749472A43A132001CFFBF /* GoogleService-Info.plist */,
 				036749342A435C1F001CFFBF /* Resourses */,
 				036749332A435C02001CFFBF /* ViewModels */,
 				036749322A435BFB001CFFBF /* Models */,
@@ -144,6 +154,23 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		EAD489C5FFAAA9B49FC7F938 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A938A105EDA17B27D0B3F73F /* Pods-Chatterbox.debug.xcconfig */,
+				DE6ED32DECA952E9FAA68CF5 /* Pods-Chatterbox.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		EE2D1CFACA20C78D1C3FC10B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				82FB6EE4AEBE5546F5EB365B /* Pods_Chatterbox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -151,9 +178,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0367492D2A435541001CFFBF /* Build configuration list for PBXNativeTarget "Chatterbox" */;
 			buildPhases = (
+				256A55CDA774252A159FF340 /* [CP] Check Pods Manifest.lock */,
 				036749152A43553F001CFFBF /* Sources */,
 				036749162A43553F001CFFBF /* Frameworks */,
 				036749172A43553F001CFFBF /* Resources */,
+				FFC80DA85273477F70889FA7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -203,12 +232,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				036749292A435541001CFFBF /* LaunchScreen.storyboard in Resources */,
+				036749482A43A132001CFFBF /* GoogleService-Info.plist in Resources */,
 				036749262A435541001CFFBF /* Assets.xcassets in Resources */,
 				036749242A43553F001CFFBF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		256A55CDA774252A159FF340 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Chatterbox-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FFC80DA85273477F70889FA7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Chatterbox/Pods-Chatterbox-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Chatterbox/Pods-Chatterbox-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Chatterbox/Pods-Chatterbox-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		036749152A43553F001CFFBF /* Sources */ = {
@@ -366,6 +438,7 @@
 		};
 		0367492E2A435541001CFFBF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A938A105EDA17B27D0B3F73F /* Pods-Chatterbox.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -399,6 +472,7 @@
 		};
 		0367492F2A435541001CFFBF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DE6ED32DECA952E9FAA68CF5 /* Pods-Chatterbox.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
