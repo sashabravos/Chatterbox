@@ -12,7 +12,9 @@ class ConversationsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        
+        title = "Chats"
+        navigationController?.navigationBar.prefersLargeTitles = true
         
     }
     

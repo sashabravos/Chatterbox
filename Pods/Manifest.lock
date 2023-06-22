@@ -1,4 +1,12 @@
 PODS:
+  - FBAEMKit (16.1.1):
+    - FBSDKCoreKit_Basics (= 16.1.1)
+  - FBSDKCoreKit (16.1.1):
+    - FBAEMKit (= 16.1.1)
+    - FBSDKCoreKit_Basics (= 16.1.1)
+  - FBSDKCoreKit_Basics (16.1.1)
+  - FBSDKLoginKit (16.1.1):
+    - FBSDKCoreKit (= 16.1.1)
   - FirebaseAppCheckInterop (10.11.0)
   - FirebaseAuth (10.11.0):
     - FirebaseAppCheckInterop (~> 10.0)
@@ -33,9 +41,10 @@ PODS:
   - GTMSessionFetcher/Core (3.1.1)
   - leveldb-library (1.22.2)
   - PromisesObjC (2.2.0)
-  - SwiftLint (0.52.2)
+  - SwiftLint (0.52.3)
 
 DEPENDENCIES:
+  - FBSDKLoginKit
   - FirebaseAuth
   - FirebaseCore
   - FirebaseDatabase
@@ -43,6 +52,10 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - FBAEMKit
+    - FBSDKCoreKit
+    - FBSDKCoreKit_Basics
+    - FBSDKLoginKit
     - FirebaseAppCheckInterop
     - FirebaseAuth
     - FirebaseCore
@@ -55,6 +68,10 @@ SPEC REPOS:
     - SwiftLint
 
 SPEC CHECKSUMS:
+  FBAEMKit: 78e6d131977b5a34a9f35baba9d397e611cf4268
+  FBSDKCoreKit: 1b76d643eb5d4ce25909c58a412fe5ba400672e1
+  FBSDKCoreKit_Basics: 27185fcaf23c152fa3788eab1e35b75f70906e4b
+  FBSDKLoginKit: de12aec64eef9fe3332d7af1dffc10a3a1a1714a
   FirebaseAppCheckInterop: 255b6c0292fe5da995c8b2df0c02f6a3ca7f61b4
   FirebaseAuth: 7aabcb00fbf330db49c207c0d645b8b1b62df0e9
   FirebaseCore: 62fd4d549f5e3f3bd52b7998721c5fa0557fb355
@@ -64,8 +81,8 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
   leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
-  SwiftLint: 1ac76dac888ca05cb0cf24d0c85887ec1209961d
+  SwiftLint: 76ec9c62ad369cff2937474cb34c9af3fa270b7b
 
-PODFILE CHECKSUM: 79bba85d0f70233303c6762565275093639c1528
+PODFILE CHECKSUM: 69e2da8dc1ecc28cd262581fc914140d8ea1f160
 
 COCOAPODS: 1.12.1

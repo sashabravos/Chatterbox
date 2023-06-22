@@ -22,6 +22,8 @@
 		036749442A437187001CFFBF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036749432A437187001CFFBF /* Extensions.swift */; };
 		036749482A43A132001CFFBF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 036749472A43A132001CFFBF /* GoogleService-Info.plist */; };
 		0367494A2A4467DA001CFFBF /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036749492A4467DA001CFFBF /* DatabaseManager.swift */; };
+		0367494C2A44A335001CFFBF /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367494B2A44A335001CFFBF /* TabBarViewController.swift */; };
+		0367494F2A44AEE9001CFFBF /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367494E2A44AEE9001CFFBF /* ProfileCell.swift */; };
 		BD378A75D9FB8C5830F676C9 /* Pods_Chatterbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82FB6EE4AEBE5546F5EB365B /* Pods_Chatterbox.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +45,8 @@
 		036749432A437187001CFFBF /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		036749472A43A132001CFFBF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		036749492A4467DA001CFFBF /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		0367494B2A44A335001CFFBF /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		0367494E2A44AEE9001CFFBF /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		82FB6EE4AEBE5546F5EB365B /* Pods_Chatterbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatterbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A938A105EDA17B27D0B3F73F /* Pods-Chatterbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatterbox.debug.xcconfig"; path = "Target Support Files/Pods-Chatterbox/Pods-Chatterbox.debug.xcconfig"; sourceTree = "<group>"; };
 		DE6ED32DECA952E9FAA68CF5 /* Pods-Chatterbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatterbox.release.xcconfig"; path = "Target Support Files/Pods-Chatterbox/Pods-Chatterbox.release.xcconfig"; sourceTree = "<group>"; };
@@ -100,7 +104,8 @@
 				0367493A2A435DBE001CFFBF /* PhotoViewerViewController.swift */,
 				0367493C2A435DD2001CFFBF /* VideoPlayerViewController.swift */,
 				0367493E2A435DEF001CFFBF /* NewConversationViewController.swift */,
-				036749402A435E00001CFFBF /* ProfileViewController.swift */,
+				0367494D2A44AED5001CFFBF /* Profile */,
+				0367494B2A44A335001CFFBF /* TabBarViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -155,6 +160,15 @@
 				036749382A435DA1001CFFBF /* RegisterViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		0367494D2A44AED5001CFFBF /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				036749402A435E00001CFFBF /* ProfileViewController.swift */,
+				0367494E2A44AEE9001CFFBF /* ProfileCell.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		EAD489C5FFAAA9B49FC7F938 /* Pods */ = {
@@ -290,10 +304,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0367494F2A44AEE9001CFFBF /* ProfileCell.swift in Sources */,
 				036749372A435D81001CFFBF /* LoginViewController.swift in Sources */,
 				0367494A2A4467DA001CFFBF /* DatabaseManager.swift in Sources */,
 				036749392A435DA1001CFFBF /* RegisterViewController.swift in Sources */,
 				0367493F2A435DEF001CFFBF /* NewConversationViewController.swift in Sources */,
+				0367494C2A44A335001CFFBF /* TabBarViewController.swift in Sources */,
 				036749212A43553F001CFFBF /* ConversationsViewController.swift in Sources */,
 				0367493D2A435DD2001CFFBF /* VideoPlayerViewController.swift in Sources */,
 				036749442A437187001CFFBF /* Extensions.swift in Sources */,

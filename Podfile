@@ -8,5 +8,6 @@ pod 'SwiftLint'
 pod 'FirebaseCore'
 pod 'FirebaseAuth'
 pod 'FirebaseDatabase'
+pod 'FBSDKLoginKit'
 
 end
