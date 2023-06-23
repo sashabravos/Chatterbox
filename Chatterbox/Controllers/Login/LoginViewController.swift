@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
+import GoogleSignIn
 
 class LoginViewController: UIViewController {
     
@@ -73,8 +74,24 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    private let googleLogInButton = GIDSignInButton()
+    
+    private var loginObserver: NSObjectProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+                        
+        loginObserver = NotificationCenter.default.fb_addObserver(forName: .didLogInNotification,
+                                                  object: nil,
+                                                  queue: .main,
+                                                  using: { [weak self] _ in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
+            strongSelf.navigationController?.dismiss(animated: true)
+        })
         
         view.backgroundColor = .white
         title = "Log In"
@@ -95,8 +112,16 @@ class LoginViewController: UIViewController {
         facebookLoginButton.delegate = self
         //Add subviews
         view.addSubview(scrollView)
-        [imageView, emailField, passwordField, loginButton, facebookLoginButton].forEach {
+        [imageView, emailField, passwordField, loginButton, facebookLoginButton, googleLogInButton].forEach {
             scrollView.addSubview($0)
+        }
+        
+        googleLogInButton.addTarget(self, action: #selector(googleSignInButtonTapped), for: .touchUpInside)
+    }
+    
+    deinit {
+        if let observer = loginObserver {
+            NotificationCenter.default.removeObserver(observer)
         }
     }
     
@@ -131,6 +156,57 @@ class LoginViewController: UIViewController {
                                            width: scrollView.width - 60,
                                            height: 52)
         
+        googleLogInButton.frame = CGRect(x: 30,
+                                         y: facebookLoginButton.bottom + 10,
+                                         width: scrollView.width - 60,
+                                         height: 52)
+    }
+    
+    @objc private func googleSignInButtonTapped() {
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { result, error in
+            guard error == nil else {
+                print("Failed to sign in with Google: \(error!)")
+                return
+            }
+            
+            guard let user = result?.user,
+                  let idToken = user.idToken?.tokenString
+            else {
+                return
+            }
+            
+            print("This user: \(user)")
+            
+            guard let email = user.profile?.email,
+                  let firstName = user.profile?.givenName,
+                  let lastName = user.profile?.familyName else {
+                return
+            }
+            
+            DatabaseManager.shared.userExists(with: email, completion: { exists in
+                if !exists {
+                    // insert new user
+                    DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: firstName,
+                                                                        lastName: lastName,
+                                                                        emailAddress: email))
+                }
+                
+                
+            })
+            
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                           accessToken: user.accessToken.tokenString)
+            Auth.auth().signIn(with: credential, completion: {
+                authResults, error in
+                guard authResults != nil, error == nil else {
+                    print("Failed to log in with google credential")
+                    return
+                }
+                
+                print("Successfully signed in Google cred.")
+                NotificationCenter.default.post(name: .didLogInNotification, object: nil)
+            })
+        }
     }
     
     @objc private func loginButtonTapped() {

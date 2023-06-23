@@ -4,10 +4,18 @@
 target 'Chatterbox' do
   use_frameworks!
 
+# SwiftLint
 pod 'SwiftLint' 
+
+# Firebase
 pod 'FirebaseCore'
 pod 'FirebaseAuth'
 pod 'FirebaseDatabase'
+
+# Facebook
 pod 'FBSDKLoginKit'
+
+# Google
+pod 'GoogleSignIn'
 
 end
