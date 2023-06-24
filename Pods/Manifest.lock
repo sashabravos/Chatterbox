@@ -52,8 +52,19 @@ PODS:
     - AppAuth/Core (~> 1.6)
     - GTMSessionFetcher/Core (< 4.0, >= 1.5)
   - GTMSessionFetcher/Core (3.1.1)
+  - InputBarAccessoryView (5.5.0):
+    - InputBarAccessoryView/Core (= 5.5.0)
+  - InputBarAccessoryView/Core (5.5.0)
   - leveldb-library (1.22.2)
+  - MessageKit (3.8.0):
+    - InputBarAccessoryView (~> 5.5.0)
+  - NVActivityIndicatorView (5.1.1):
+    - NVActivityIndicatorView/Base (= 5.1.1)
+  - NVActivityIndicatorView/Base (5.1.1)
   - PromisesObjC (2.2.0)
+  - SDWebImage (5.16.0):
+    - SDWebImage/Core (= 5.16.0)
+  - SDWebImage/Core (5.16.0)
   - SwiftLint (0.52.3)
 
 DEPENDENCIES:
@@ -62,6 +73,9 @@ DEPENDENCIES:
   - FirebaseCore
   - FirebaseDatabase
   - GoogleSignIn
+  - MessageKit
+  - NVActivityIndicatorView
+  - SDWebImage
   - SwiftLint
 
 SPEC REPOS:
@@ -80,8 +94,12 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
+    - InputBarAccessoryView
     - leveldb-library
+    - MessageKit
+    - NVActivityIndicatorView
     - PromisesObjC
+    - SDWebImage
     - SwiftLint
 
 SPEC CHECKSUMS:
@@ -99,10 +117,14 @@ SPEC CHECKSUMS:
   GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
   GTMAppAuth: 99fb010047ba3973b7026e45393f51f27ab965ae
   GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
+  InputBarAccessoryView: 1d7b0a672b36e370f01f264b3907ef39d03328e3
   leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
+  MessageKit: a1ba0c69ebead94029867853eb44dd05b9b3f453
+  NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
+  SDWebImage: 2aea163b50bfcb569a2726b6a754c54a4506fcf6
   SwiftLint: 76ec9c62ad369cff2937474cb34c9af3fa270b7b
 
-PODFILE CHECKSUM: c9d8525f0283a39a56e84e85d1cc066c846603a9
+PODFILE CHECKSUM: 69b38742ed82905a59efe179f80bbbae645c7945
 
 COCOAPODS: 1.12.1

@@ -24,7 +24,9 @@
 		0367494A2A4467DA001CFFBF /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036749492A4467DA001CFFBF /* DatabaseManager.swift */; };
 		0367494C2A44A335001CFFBF /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367494B2A44A335001CFFBF /* TabBarViewController.swift */; };
 		0367494F2A44AEE9001CFFBF /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367494E2A44AEE9001CFFBF /* ProfileCell.swift */; };
-		BD378A75D9FB8C5830F676C9 /* Pods_Chatterbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82FB6EE4AEBE5546F5EB365B /* Pods_Chatterbox.framework */; };
+		036749542A471021001CFFBF /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 036749532A471021001CFFBF /* RealmSwift */; };
+		036749562A477304001CFFBF /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036749552A477304001CFFBF /* ChatViewController.swift */; };
+		F22D9A07F82AF8438F61686D /* Pods_Chatterbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9EB5082034782ED589D06D /* Pods_Chatterbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,9 +49,10 @@
 		036749492A4467DA001CFFBF /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		0367494B2A44A335001CFFBF /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		0367494E2A44AEE9001CFFBF /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
-		82FB6EE4AEBE5546F5EB365B /* Pods_Chatterbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatterbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A938A105EDA17B27D0B3F73F /* Pods-Chatterbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatterbox.debug.xcconfig"; path = "Target Support Files/Pods-Chatterbox/Pods-Chatterbox.debug.xcconfig"; sourceTree = "<group>"; };
-		DE6ED32DECA952E9FAA68CF5 /* Pods-Chatterbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatterbox.release.xcconfig"; path = "Target Support Files/Pods-Chatterbox/Pods-Chatterbox.release.xcconfig"; sourceTree = "<group>"; };
+		036749552A477304001CFFBF /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		1A9EB5082034782ED589D06D /* Pods_Chatterbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatterbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E641F0DE77CCFA3F0C1F7BDD /* Pods-Chatterbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatterbox.debug.xcconfig"; path = "Target Support Files/Pods-Chatterbox/Pods-Chatterbox.debug.xcconfig"; sourceTree = "<group>"; };
+		F8B396A6F07553CFB768096F /* Pods-Chatterbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatterbox.release.xcconfig"; path = "Target Support Files/Pods-Chatterbox/Pods-Chatterbox.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +60,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD378A75D9FB8C5830F676C9 /* Pods_Chatterbox.framework in Frameworks */,
+				036749542A471021001CFFBF /* RealmSwift in Frameworks */,
+				F22D9A07F82AF8438F61686D /* Pods_Chatterbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +74,7 @@
 				0367491B2A43553F001CFFBF /* Chatterbox */,
 				0367491A2A43553F001CFFBF /* Products */,
 				EAD489C5FFAAA9B49FC7F938 /* Pods */,
-				EE2D1CFACA20C78D1C3FC10B /* Frameworks */,
+				C4C4C13BCA5082DE2030DBC9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,6 +110,7 @@
 				0367493E2A435DEF001CFFBF /* NewConversationViewController.swift */,
 				0367494D2A44AED5001CFFBF /* Profile */,
 				0367494B2A44A335001CFFBF /* TabBarViewController.swift */,
+				036749552A477304001CFFBF /* ChatViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -171,21 +176,21 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		C4C4C13BCA5082DE2030DBC9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1A9EB5082034782ED589D06D /* Pods_Chatterbox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EAD489C5FFAAA9B49FC7F938 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A938A105EDA17B27D0B3F73F /* Pods-Chatterbox.debug.xcconfig */,
-				DE6ED32DECA952E9FAA68CF5 /* Pods-Chatterbox.release.xcconfig */,
+				E641F0DE77CCFA3F0C1F7BDD /* Pods-Chatterbox.debug.xcconfig */,
+				F8B396A6F07553CFB768096F /* Pods-Chatterbox.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		EE2D1CFACA20C78D1C3FC10B /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				82FB6EE4AEBE5546F5EB365B /* Pods_Chatterbox.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,17 +200,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0367492D2A435541001CFFBF /* Build configuration list for PBXNativeTarget "Chatterbox" */;
 			buildPhases = (
-				256A55CDA774252A159FF340 /* [CP] Check Pods Manifest.lock */,
+				89FF2677BD8EC5782006B066 /* [CP] Check Pods Manifest.lock */,
 				036749152A43553F001CFFBF /* Sources */,
 				036749162A43553F001CFFBF /* Frameworks */,
 				036749172A43553F001CFFBF /* Resources */,
-				FFC80DA85273477F70889FA7 /* [CP] Embed Pods Frameworks */,
+				E63A6352B7F63644C3F8FA9B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Chatterbox;
+			packageProductDependencies = (
+				036749532A471021001CFFBF /* RealmSwift */,
+			);
 			productName = Chatterbox;
 			productReference = 036749192A43553F001CFFBF /* Chatterbox.app */;
 			productType = "com.apple.product-type.application";
@@ -234,6 +242,9 @@
 				Base,
 			);
 			mainGroup = 036749102A43553F001CFFBF;
+			packageReferences = (
+				036749522A471021001CFFBF /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = 0367491A2A43553F001CFFBF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -258,7 +269,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		256A55CDA774252A159FF340 /* [CP] Check Pods Manifest.lock */ = {
+		89FF2677BD8EC5782006B066 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -280,7 +291,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FFC80DA85273477F70889FA7 /* [CP] Embed Pods Frameworks */ = {
+		E63A6352B7F63644C3F8FA9B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -314,6 +325,7 @@
 				0367493D2A435DD2001CFFBF /* VideoPlayerViewController.swift in Sources */,
 				036749442A437187001CFFBF /* Extensions.swift in Sources */,
 				0367491D2A43553F001CFFBF /* AppDelegate.swift in Sources */,
+				036749562A477304001CFFBF /* ChatViewController.swift in Sources */,
 				036749412A435E00001CFFBF /* ProfileViewController.swift in Sources */,
 				0367491F2A43553F001CFFBF /* SceneDelegate.swift in Sources */,
 				0367493B2A435DBE001CFFBF /* PhotoViewerViewController.swift in Sources */,
@@ -458,7 +470,7 @@
 		};
 		0367492E2A435541001CFFBF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A938A105EDA17B27D0B3F73F /* Pods-Chatterbox.debug.xcconfig */;
+			baseConfigurationReference = E641F0DE77CCFA3F0C1F7BDD /* Pods-Chatterbox.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -492,7 +504,7 @@
 		};
 		0367492F2A435541001CFFBF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE6ED32DECA952E9FAA68CF5 /* Pods-Chatterbox.release.xcconfig */;
+			baseConfigurationReference = F8B396A6F07553CFB768096F /* Pods-Chatterbox.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -546,6 +558,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		036749522A471021001CFFBF /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		036749532A471021001CFFBF /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 036749522A471021001CFFBF /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 036749112A43553F001CFFBF /* Project object */;
 }

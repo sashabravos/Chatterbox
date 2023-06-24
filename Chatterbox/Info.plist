@@ -2,6 +2,36 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.404438435831-ik6rgh9201g5i4jcca7opdrnbr2lmmho</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb258846236794769</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>258846236794769</string>
+	<key>FacebookClientToken</key>
+	<string>d454caf9db06ddd93754d0efb18b5b8c</string>
+	<key>FacebookDisplayName</key>
+	<string>Chatterbox</string>
+	<key>GIDClientID</key>
+	<string>404438435831-ik6rgh9201g5i4jcca7opdrnbr2lmmho.apps.googleusercontent.com</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

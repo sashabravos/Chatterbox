@@ -7,8 +7,13 @@
 
 import UIKit
 import FirebaseAuth
+import NVActivityIndicatorView
 
 class RegisterViewController: UIViewController {
+    
+    private let spinner = NVActivityIndicatorView(frame: .init(origin: .zero, size: CGSize(width: 20.0, height: 20.0)),
+                                                  type: .ballScaleMultiple,
+                                                  color: .darkGray)
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -193,10 +198,15 @@ class RegisterViewController: UIViewController {
             return
         }
         
+        spinner.startAnimating()
         //Firebase Sign In
         DatabaseManager.shared.userExists(with: email, completion: { [weak self] exists in
             guard let strongSelf = self else {
                 return
+            }
+            
+            DispatchQueue.main.async {
+                strongSelf.spinner.stopAnimating()
             }
             
             guard !exists else {
