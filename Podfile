@@ -11,6 +11,7 @@ pod 'SwiftLint'
 pod 'FirebaseCore'
 pod 'FirebaseAuth'
 pod 'FirebaseDatabase'
+pod 'FirebaseStorage'
 
 # Facebook
 pod 'FBSDKLoginKit'

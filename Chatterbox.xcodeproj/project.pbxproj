@@ -26,6 +26,7 @@
 		0367494F2A44AEE9001CFFBF /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367494E2A44AEE9001CFFBF /* ProfileCell.swift */; };
 		036749542A471021001CFFBF /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 036749532A471021001CFFBF /* RealmSwift */; };
 		036749562A477304001CFFBF /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036749552A477304001CFFBF /* ChatViewController.swift */; };
+		036749582A478620001CFFBF /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036749572A478620001CFFBF /* StorageManager.swift */; };
 		F22D9A07F82AF8438F61686D /* Pods_Chatterbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9EB5082034782ED589D06D /* Pods_Chatterbox.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		0367494B2A44A335001CFFBF /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		0367494E2A44AEE9001CFFBF /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		036749552A477304001CFFBF /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		036749572A478620001CFFBF /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		1A9EB5082034782ED589D06D /* Pods_Chatterbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatterbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E641F0DE77CCFA3F0C1F7BDD /* Pods-Chatterbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatterbox.debug.xcconfig"; path = "Target Support Files/Pods-Chatterbox/Pods-Chatterbox.debug.xcconfig"; sourceTree = "<group>"; };
 		F8B396A6F07553CFB768096F /* Pods-Chatterbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatterbox.release.xcconfig"; path = "Target Support Files/Pods-Chatterbox/Pods-Chatterbox.release.xcconfig"; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				0367491E2A43553F001CFFBF /* SceneDelegate.swift */,
 				036749432A437187001CFFBF /* Extensions.swift */,
 				036749492A4467DA001CFFBF /* DatabaseManager.swift */,
+				036749572A478620001CFFBF /* StorageManager.swift */,
 			);
 			path = Resourses;
 			sourceTree = "<group>";
@@ -327,6 +330,7 @@
 				0367491D2A43553F001CFFBF /* AppDelegate.swift in Sources */,
 				036749562A477304001CFFBF /* ChatViewController.swift in Sources */,
 				036749412A435E00001CFFBF /* ProfileViewController.swift in Sources */,
+				036749582A478620001CFFBF /* StorageManager.swift in Sources */,
 				0367491F2A43553F001CFFBF /* SceneDelegate.swift in Sources */,
 				0367493B2A435DBE001CFFBF /* PhotoViewerViewController.swift in Sources */,
 			);
