@@ -13,14 +13,24 @@ import NVActivityIndicatorView
 
 class LoginViewController: UIViewController {
     
-    private let spinner = NVActivityIndicatorView(frame: .init(origin: .zero, size: CGSize(width: 20.0, height: 20.0)),
-                                                  type: .ballScaleMultiple,
-                                                  color: .darkGray)
+    private let spinner = NVActivityIndicatorView(frame: .zero,
+                                                  type: .ballSpinFadeLoader,
+                                                  color: .black)
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
         return scrollView
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 32, weight: .medium)
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.textColor = UIColor.label
+        label.text = "Welcome to Chatterbox"
+        return label
     }()
     
     private let imageView: UIImageView = {
@@ -61,9 +71,30 @@ class LoginViewController: UIViewController {
         return textField
     }()
     
+    private let noAccountLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.textAlignment = .center
+        label.textColor = UIColor.label
+        label.text = "Don't have an account?"
+        return label
+    }()
+    
     private let loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log In", for: .normal)
+        button.backgroundColor = .link
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        
+        return button
+    }()
+    
+    private let signUpButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Sign Up", for: .normal)
         button.backgroundColor = .link
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12
@@ -98,15 +129,11 @@ class LoginViewController: UIViewController {
             strongSelf.navigationController?.dismiss(animated: true)
         })
         
-        view.backgroundColor = .white
-        title = "Log In"
-        
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign In",
-                                                            style: .done,
-                                                            target: self,
-                                                            action: #selector(didTapRegister))
-        
+        view.backgroundColor = .systemBackground
+    
+        signUpButton.addTarget(self,
+                              action: #selector(didTapRegister),
+                              for: .touchUpInside)
         loginButton.addTarget(self,
                               action: #selector(loginButtonTapped),
                               for: .touchUpInside)
@@ -115,9 +142,10 @@ class LoginViewController: UIViewController {
         passwordField.delegate = self
         
         facebookLoginButton.delegate = self
+        
         //Add subviews
         view.addSubview(scrollView)
-        [imageView, emailField, passwordField, loginButton, facebookLoginButton, googleLogInButton].forEach {
+        [titleLabel, imageView, emailField, passwordField, loginButton, noAccountLabel, signUpButton, facebookLoginButton, googleLogInButton, spinner].forEach {
             scrollView.addSubview($0)
         }
         
@@ -136,8 +164,14 @@ class LoginViewController: UIViewController {
         scrollView.frame = view.bounds
         
         let size = view.width/3
+        
+        titleLabel.frame = CGRect(x: 30,
+                                  y: 20,
+                                  width: scrollView.width - 60,
+                                  height: 52)
+        
         imageView.frame = CGRect(x: (view.width - size)/2,
-                                 y: 20,
+                                 y: titleLabel.bottom + 10,
                                  width: size,
                                  height: size)
         
@@ -156,8 +190,18 @@ class LoginViewController: UIViewController {
                                    width: scrollView.width - 60,
                                    height: 52)
         
+        noAccountLabel.frame = CGRect(x: 30,
+                                   y: loginButton.bottom + 80,
+                                   width: scrollView.width - 60,
+                                   height: 52)
+        
+        signUpButton.frame = CGRect(x: 30,
+                                   y: noAccountLabel.bottom + 10,
+                                   width: scrollView.width - 60,
+                                   height: 52)
+                
         facebookLoginButton.frame = CGRect(x: 30,
-                                           y: loginButton.bottom + 10,
+                                           y: signUpButton.bottom + 10,
                                            width: scrollView.width - 60,
                                            height: 52)
         
@@ -165,57 +209,29 @@ class LoginViewController: UIViewController {
                                          y: facebookLoginButton.bottom + 10,
                                          width: scrollView.width - 60,
                                          height: 52)
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate ([
+            spinner.widthAnchor.constraint(equalToConstant: 40.0),
+            spinner.heightAnchor.constraint(equalToConstant: 40.0),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
     
     @objc private func googleSignInButtonTapped() {
-        GIDSignIn.sharedInstance.signIn(withPresenting: self) { result, error in
-            guard error == nil else {
-                print("Failed to sign in with Google: \(error!)")
-                return
-            }
-            
-            guard let user = result?.user,
-                  let idToken = user.idToken?.tokenString
-            else {
-                return
-            }
-            
-            print("This user: \(user)")
-            
-            guard let email = user.profile?.email,
-                  let firstName = user.profile?.givenName,
-                  let lastName = user.profile?.familyName else {
-                return
-            }
-            
-            DatabaseManager.shared.userExists(with: email, completion: { exists in
-                if !exists {
-                    // insert new user
-                   let chatUser =  ChatAppUser(firstName: firstName,
-                                                                        lastName: lastName,
-                                                                        emailAddress: email)
-                    DatabaseManager.shared.insertUser(with: chatUser) { success in
-                        if success {
-                            //upload image
-                        }
-                    }
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) {_,_ in
+            GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+                
+                if let user = user, error == nil {
+                    appDelegate.handleSessionRestore(user: user)
                 }
-                
-                
-            })
-            
-            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-                                                           accessToken: user.accessToken.tokenString)
-            Auth.auth().signIn(with: credential, completion: {
-                authResults, error in
-                guard authResults != nil, error == nil else {
-                    print("Failed to log in with google credential")
-                    return
-                }
-                
-                print("Successfully signed in Google cred.")
-                NotificationCenter.default.post(name: .didLogInNotification, object: nil)
-            })
+            }
         }
     }
     
@@ -249,7 +265,11 @@ class LoginViewController: UIViewController {
                 print("Failed to log in user with email: \(email)")
                 return
             }
+            
             let user = result.user
+            
+            UserDefaults.standard.set(email, forKey: "email")
+            
             print("Logged user: \(user)")
             strongSelf.navigationController?.dismiss(animated: true)
         })
@@ -287,7 +307,7 @@ extension LoginViewController: UITextFieldDelegate {
 
 extension LoginViewController: LoginButtonDelegate {
 
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
         // no operation
     }
     
@@ -297,11 +317,8 @@ extension LoginViewController: LoginButtonDelegate {
             return
         }
 
-        let facebookRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
-                                                         parameters: ["fields": "email, first_name, last_name, picture.type(large)"],
-                                                         tokenString: token,
-                                                         version: nil,
-                                                         httpMethod: .get)
+        let facebookRequest = GraphRequest(graphPath: "/me",
+                                                parameters: ["fields": "id, first_name, last_name, picture{url}"], httpMethod: .get)
 
         facebookRequest.start(completion: {_, result, error in
             guard let result = result as? [String: Any], error == nil else {
@@ -312,14 +329,17 @@ extension LoginViewController: LoginButtonDelegate {
             print(result)
             
             guard let firstName = result["first_name"] as? String,
-                  let lastName = result["last_name"] as? String,
-                  let email = result["email"] as? String,
-                  let picture = result["picture"] as? [String: Any],
-                  let data = picture["data"]  as? [String: Any],
-                  let pictureURL = result["url"] as? String else {
-                print("Failed to get email and name from fb result")
-                return
-            }
+                      let lastName = result["last_name"] as? String,
+                      let email = result["email"] as? String,
+                      let picture = result["picture"] as? [String: Any],
+                      let data = picture["data"]  as? [String: Any],
+                      let pictureURL = data["url"] as? String else {
+                        print("Failed to get email and name from fb result")
+                        return
+                }
+            
+            UserDefaults.standard.set(email, forKey: "email")
+            UserDefaults.standard.set("\(firstName) \(lastName)", forKey: "name")
 
             DatabaseManager.shared.userExists(with: email, completion: {exists in
                 if !exists {

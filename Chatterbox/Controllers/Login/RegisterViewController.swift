@@ -6,14 +6,15 @@
 //
 
 import UIKit
+import SDWebImage
 import FirebaseAuth
 import NVActivityIndicatorView
 
 class RegisterViewController: UIViewController {
     
-    private let spinner = NVActivityIndicatorView(frame: .init(origin: .zero, size: CGSize(width: 20.0, height: 20.0)),
-                                                  type: .ballScaleMultiple,
-                                                  color: .darkGray)
+    private let spinner = NVActivityIndicatorView(frame: .zero,
+                                                  type: .ballSpinFadeLoader,
+                                                  color: .black)
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -23,7 +24,7 @@ class RegisterViewController: UIViewController {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person.circle")
+        imageView.image = UIImage(systemName: "camera.circle")
         imageView.tintColor = .gray
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
@@ -108,7 +109,7 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign In",
                                                             style: .done,
@@ -121,9 +122,10 @@ class RegisterViewController: UIViewController {
         
         emailField.delegate = self
         passwordField.delegate = self
+        
         //Add subviews
         view.addSubview(scrollView)
-        [imageView, firstNameField, lastNameField, emailField, passwordField, registerButton].forEach {
+        [imageView, firstNameField, lastNameField, emailField, passwordField, registerButton, spinner].forEach {
             scrollView.addSubview($0)
         }
         
@@ -146,7 +148,7 @@ class RegisterViewController: UIViewController {
         
         scrollView.frame = view.bounds
         
-        let size = view.width/3
+        let size = scrollView.width/3
         imageView.frame = CGRect(x: (view.width - size)/2,
                                  y: 20,
                                  width: size,
@@ -178,6 +180,15 @@ class RegisterViewController: UIViewController {
                                       y: passwordField.bottom + 10,
                                       width: scrollView.width - 60,
                                       height: 52)
+        
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate ([
+            spinner.widthAnchor.constraint(equalToConstant: 40.0),
+            spinner.heightAnchor.constraint(equalToConstant: 40.0),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
     
     @objc private func registerButtonTapped() {
@@ -198,7 +209,8 @@ class RegisterViewController: UIViewController {
             return
         }
         
-        spinner.startAnimating()
+            spinner.startAnimating()
+        
         //Firebase Sign In
         DatabaseManager.shared.userExists(with: email, completion: { [weak self] exists in
             guard let strongSelf = self else {
@@ -218,10 +230,14 @@ class RegisterViewController: UIViewController {
             
             Auth.auth().createUser(withEmail: email, password: password, completion: { authResults, error in
                 
-                guard authResults != nil, error == nil else {
-                    print("Error creating user")
-                    return
-                }
+                if let error = error, authResults != nil {
+                        print("Error creating user:", error.localizedDescription)
+                        strongSelf.alertUserLoginError(message: "Failed to create user. Please try again later.")
+                        return
+                    }
+                
+                UserDefaults.standard.setValue(email, forKey: "email")
+                UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
                 
                 let chatUser =  ChatAppUser(firstName: firstName,
                                             lastName: lastName,
@@ -231,16 +247,26 @@ class RegisterViewController: UIViewController {
                     if success {
                         //upload image
                         guard let image = strongSelf.imageView.image,
-                                let data = image.pngData() else {
+                              let data = image.pngData() else {
                             return
                         }
+                        
                         let fileName = chatUser.profilePictureFileName
-                        StorageManager.shared.uploadProfilePicture(with: data,
-                                                                   fileName: fileName) { result in
+                        StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName) { result in
                             switch result {
-                            case .success(let downloadURL):
-                                UserDefaults.standard.set(downloadURL, forKey: "profile_picture_url")
-                                print(downloadURL)
+                            case .success(let downloadURLString):
+                                guard let downloadURL = URL(string: downloadURLString) else {
+                                    print("Invalid download URL")
+                                    return
+                                }
+                                
+                                // Use SDWebImage to set the profile picture
+                                DispatchQueue.main.async {
+                                    strongSelf.imageView.sd_setImage(with: downloadURL, completed: nil)
+                                }
+                                
+                                UserDefaults.standard.set(downloadURLString, forKey: "profile_picture_url")
+                                print(downloadURLString)
                             case .failure(let error):
                                 print("Storage manager error: \(error)")
                             }

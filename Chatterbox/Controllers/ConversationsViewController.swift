@@ -10,7 +10,7 @@ import FirebaseAuth
 import NVActivityIndicatorView
 
 class ConversationsViewController: UIViewController {
-    
+        
     private let spinner = NVActivityIndicatorView(frame: .init(origin: .zero, size: CGSize(width: 20.0, height: 20.0)),
                                                   type: .ballScaleMultiple,
                                                   color: .darkGray)
@@ -53,8 +53,18 @@ class ConversationsViewController: UIViewController {
     
     @objc private func didTapComposeButton() {
         let newConversationVC = NewConversationViewController()
+        newConversationVC.completion = { [weak self] result  in
+            print("\(result)")
+        }
         let navVC = UINavigationController(rootViewController: newConversationVC)
         present(navVC, animated: true)
+    }
+    
+    private func createNewConversation(result: [String: String]) {
+        let ChatVC = ChatViewController()
+        ChatVC.title = "Jenny Smith"
+        ChatVC.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(ChatVC, animated: true)
     }
     
     override func viewDidLayoutSubviews() {

@@ -20,13 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
+        // Facebook login
         ApplicationDelegate.shared.application(
             application,
             didFinishLaunchingWithOptions: launchOptions
         )
-        
+
         GIDSignIn.sharedInstance.restorePreviousSignIn { [weak self] user, error in
-            
+
             if let user = user, error == nil {
                 self?.handleSessionRestore(user: user)
             }
@@ -94,7 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                         UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
                                         print(downloadUrl)
                                     case .failure(let error):
-                                        print("Storage maanger error: \(error)")
+                                        print("Storage manager error: \(error)")
                                     }
                                 })
                             }) .resume()
@@ -112,7 +113,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             accessToken: user.accessToken.tokenString
         )
         
-        FirebaseAuth.Auth.auth().signIn(with: credential, completion: { authResult, error in
+        Auth.auth().signIn(with: credential, completion: { authResult, error in
             guard authResult != nil, error == nil else {
                 print("failed to log in with google credential")
                 return

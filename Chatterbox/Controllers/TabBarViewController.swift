@@ -12,14 +12,19 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .lightGray
         
         let chats = ConversationsViewController()
         let profile = ProfileViewController()
 
         viewControllers = [
-            generateNavigationController(rootViewController: chats, title: "Chats", image: UIImage(systemName: "circle") ?? UIImage()),
-            generateNavigationController(rootViewController: profile, title: "Profile", image: UIImage(systemName: "circle") ?? UIImage())
+            generateNavigationController(rootViewController: chats,
+                                         title: "Chats",
+                                         image: UIImage(systemName: "message.fill") ?? UIImage()),
+            
+            generateNavigationController(rootViewController: profile,
+                                         title: "Profile",
+                                         image: UIImage(systemName: "person.crop.circle") ?? UIImage())
         ]
     }
     

@@ -12,18 +12,26 @@ final class StorageManager {
     
     static let shared = StorageManager()
     
+    private init() {}
+
     private var storage = Storage.storage().reference()
     
     /*
-     /images/z
+     /images/user-gmail-com_profile_picture.png
      */
-    
+
     public typealias UploadPictureCompletion = (Result<String, Error>) -> Void
+    
     /// Uploads picture to firebase storage and returns completion with url string to download
     public func uploadProfilePicture(with data: Data,
                                      fileName: String,
                                      completion: @escaping  UploadPictureCompletion) {
-        storage.child("images/\(fileName)").putData(data, completion: {metadata, error in
+        storage.child("images/\(fileName)").putData(data, completion: { [weak self] metadata, error in
+
+            guard let strongSelf = self else {
+                return
+            }
+
             guard error == nil else {
                 // failed
                 print ("failed to upload data to firebase for picture")
@@ -31,7 +39,7 @@ final class StorageManager {
                 return
             }
             
-            self.storage.child("images/\(fileName)").downloadURL { url, error in
+            strongSelf.storage.child("images/\(fileName)").downloadURL { url, error in
                 guard let url = url else {
                     print ("Failed to get download url")
                     completion(.failure(StorageError.failToGetDownloadUrl))
@@ -48,5 +56,17 @@ final class StorageManager {
     public enum StorageError: Error {
         case failedToUpload
         case failToGetDownloadUrl
+    }
+
+    public func downloadURL(for path: String, completion: @escaping (Result<URL, Error>) -> Void) {
+        let reference = storage.child(path)
+        
+        reference.downloadURL { url, error in
+            guard let url = url, error == nil else {
+                completion(.failure(StorageError.failToGetDownloadUrl))
+                return
+            }
+            completion(.success(url))
+        }
     }
 }

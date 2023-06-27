@@ -1,5 +1,5 @@
 //
-//  Extensions.swift
+//  UIViewExstensions.swift
 //  Chatterbox
 //
 //  Created by Александра Кострова on 21.06.2023.
@@ -29,8 +29,4 @@ extension UIView {
     public var right: CGFloat {
         return self.frame.size.width + self.frame.origin.x
     }
-}
-
-extension Notification.Name {
-    static let didLogInNotification = Notification.Name("didLogInNotification")
 }
