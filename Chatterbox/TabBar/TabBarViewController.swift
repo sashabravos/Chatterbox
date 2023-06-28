@@ -34,7 +34,8 @@ class TabBarViewController: UITabBarController {
         ]
         
         //  index of the controller that starts first when the application starts
-        selectedIndex = 1
+        // 0 - contacts, 1 - chats, 2 - profile settings
+        selectedIndex = 2
     }
     
     private func generateNavigationController(rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {

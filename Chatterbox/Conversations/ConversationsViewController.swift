@@ -106,10 +106,18 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        let ChatVC = ChatViewController()
-        ChatVC.title = "Jenny Smith"
-        ChatVC.navigationItem.largeTitleDisplayMode = .never
-        navigationController?.pushViewController(ChatVC, animated: true)
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? ConversationCell {
+            let ChatVC = ChatViewController()
+            ChatVC.title = cell.getConversationName()
+            ChatVC.navigationItem.largeTitleDisplayMode = .never
+            navigationController?.pushViewController(ChatVC, animated: true)
+            
+        } else {
+            print("Failed to get ConversationCell")
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
     }
 }

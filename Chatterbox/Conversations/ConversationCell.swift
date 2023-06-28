@@ -119,5 +119,9 @@ class ConversationCell: UITableViewCell {
             }
         })
     }
+    
+    public func getConversationName() -> String {
+        return userNameLabel.text!
+    }
 
 }

@@ -25,12 +25,16 @@ class ProfileCell: UITableViewCell {
     public func setUp(with viewModel: ProfileViewModel) {
         self.textLabel?.text = viewModel.title
         switch viewModel.viewModelType {
+        case .changeAvatar:
+            textLabel?.textAlignment = .center
+            textLabel?.font = UIFont.systemFont(ofSize: 18)
         case .info:
             textLabel?.textAlignment = .left
             selectionStyle = .none
         case .logout:
             textLabel?.textColor = .red
             textLabel?.textAlignment = .center
+            textLabel?.font = UIFont.systemFont(ofSize: 20)
         }
     }
 }

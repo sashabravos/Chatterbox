@@ -13,8 +13,9 @@ import SDWebImage
 
 class ProfileViewController: UIViewController {
 
-    let tableView = UITableView()
     var data = [ProfileViewModel]()
+    
+    let tableView = UITableView()
     
     var profilePicture: UIImageView = {
             let picture = UIImageView()
@@ -23,7 +24,7 @@ class ProfileViewController: UIViewController {
             picture.layer.borderColor = UIColor.white.cgColor
             picture.layer.borderWidth = 3
             picture.layer.masksToBounds = true
-            picture.layer.cornerRadius = picture.width/2
+            picture.layer.cornerRadius = 125
             return picture
         }()
 
@@ -40,45 +41,25 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        tableView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
+        
+        tableView.frame = view.bounds
+        
+        profilePicture.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            profilePicture.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            profilePicture.heightAnchor.constraint(equalToConstant: 250),
+            profilePicture.widthAnchor.constraint(equalToConstant: 250),
+            profilePicture.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 20)
+        ])
     }
 
     func createTableViewHeader() -> UIView? {
-
-        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
-            return nil
-        }
-        let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
-        let fileName = safeEmail + "_profile_picture.png"
-        let path = "images/" + fileName
-
-        let headerView = UIView(frame: CGRect(x: 0,
-                                              y: 0,
-                                              width: self.view.width,
-                                              height: 300))
-        
-        headerView.backgroundColor = .systemBackground
-
-        profilePicture = UIImageView(frame: CGRect(x: (headerView.width-150) / 2,
-                                                  y: 75,
-                                                  width: 150,
-                                                  height: 150))
-
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 300))
         headerView.addSubview(profilePicture)
-
-        StorageManager.shared.downloadURL(for: path, completion: { result in
-            switch result {
-            case .success(let url):
-                self.profilePicture.sd_setImage(with: url, completed: nil)
-            case .failure(let error):
-                print("Failed to get download url4: \(error)")
-            }
-        })
-
+        headerView.backgroundColor = UIColor(patternImage: setUserImage()).withAlphaComponent(0.1)
+                
         return headerView
     }
-    
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -89,13 +70,38 @@ class ProfileViewController: UIViewController {
         tableView.reloadData()
     }
     
-    func configProfileModel() {
+    func setUserImage() -> UIImage {
+        let defaultImage = UIImage(systemName: "person")!
+        // download userProfile image from Storage
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
+            return defaultImage
+        }
+        let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
+        let fileName = safeEmail + "_profile_picture.png"
+        let path = "images/" + fileName
         
+        StorageManager.shared.downloadURL(for: path, completion: { result in
+            switch result {
+            case .success(let url):
+                self.profilePicture.sd_setImage(with: url, completed: nil)
+            case .failure(let error):
+                print("Failed to get download url ProfilePicture: \(error)")
+            }
+        })
+        return defaultImage
+    }
+    
+    func configProfileModel() {
+        data.append(ProfileViewModel(viewModelType: .changeAvatar,
+                                     title: "Change the avatar",
+                                     handler: { [weak self] in
+            self?.presentPhotoActionSheet()
+        }))
         data.append(ProfileViewModel(viewModelType: .info,
-                                     title: "Name: \(UserDefaults.standard.value(forKey:"name") as? String ?? "No Name")",
+                                     title: "Name: \(UserDefaults.standard.value(forKey:"name") as? String ?? "Unknown")",
                                      handler: nil))
         data.append(ProfileViewModel(viewModelType: .info,
-                                     title: "Email: \(UserDefaults.standard.value(forKey:"email") as? String ?? "No Email")",
+                                     title: "Email: \(UserDefaults.standard.value(forKey:"email") as? String ?? "Unknown")",
                                      handler: nil))
         data.append(ProfileViewModel(viewModelType: .logout, title: "Log Out", handler: { [weak self] in
             
@@ -168,64 +174,58 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
 
 }
 
-//
-//    @objc func changeProfilePic() {
-//        presentPhotoActionSheet()
-//    }
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-//
-//extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-//
-//    func presentPhotoActionSheet() {
-//        let actionSheet = UIAlertController(title: "Profile picture",
-//                                            message: "How would you like select a picture?",
-//                                            preferredStyle: .actionSheet)
-//        actionSheet.addAction(UIAlertAction(title: "Cancel",
-//                                            style: .cancel))
-//        actionSheet.addAction(UIAlertAction(title: "Take Photo",
-//                                            style: .default,
-//                                            handler: { [weak self] _ in
-//            self?.presentCamera()
-//
-//        }))
-//        actionSheet.addAction(UIAlertAction(title: "Choose Photo",
-//                                            style: .default,
-//                                            handler: { [weak self] _ in
-//            self?.presentPhotoPicker()
-//
-//        }))
-//
-//        present(actionSheet, animated: true)
-//    }
-//
-//    func presentCamera() {
-//        let pickerVC = UIImagePickerController()
-//        pickerVC.sourceType = .camera
-//        pickerVC.delegate = self
-//        pickerVC.allowsEditing = true
-//        present(pickerVC, animated: true)
-//    }
-//
-//    func presentPhotoPicker() {
-//        let pickerVC = UIImagePickerController()
-//        pickerVC.sourceType = .photoLibrary
-//        pickerVC.delegate = self
-//        pickerVC.allowsEditing = true
-//        present(pickerVC, animated: true)
-//    }
-//
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        picker.dismiss(animated: true)
-//        guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
-//            return
-//        }
-//
-//        self.profilePicture.image = selectedImage
-//
-//    }
-//
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        picker.dismiss(animated: true)
-//    }
-//}
-//
+    func presentPhotoActionSheet() {
+        let actionSheet = UIAlertController(title: "Profile picture",
+                                            message: "How would you like select a picture?",
+                                            preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Cancel",
+                                            style: .cancel))
+        actionSheet.addAction(UIAlertAction(title: "Take Photo",
+                                            style: .default,
+                                            handler: { [weak self] _ in
+            self?.presentCamera()
+
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Choose Photo",
+                                            style: .default,
+                                            handler: { [weak self] _ in
+            self?.presentPhotoPicker()
+
+        }))
+
+        present(actionSheet, animated: true)
+    }
+
+    func presentCamera() {
+        let pickerVC = UIImagePickerController()
+        pickerVC.sourceType = .camera
+        pickerVC.delegate = self
+        pickerVC.allowsEditing = true
+        present(pickerVC, animated: true)
+    }
+
+    func presentPhotoPicker() {
+        let pickerVC = UIImagePickerController()
+        pickerVC.sourceType = .photoLibrary
+        pickerVC.delegate = self
+        pickerVC.allowsEditing = true
+        present(pickerVC, animated: true)
+    }
+
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true)
+        guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            return
+        }
+
+        self.profilePicture.image = selectedImage
+
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true)
+    }
+}
+
