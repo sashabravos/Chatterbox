@@ -41,21 +41,20 @@ final class StorageManager {
             
             strongSelf.storage.child("images/\(fileName)").downloadURL { url, error in
                 guard let url = url else {
-                    print ("Failed to get download url")
-                    completion(.failure(StorageError.failToGetDownloadUrl))
+                    print ("Failed to get download url1")
+                    completion(.failure(StorageError.failedToGetDownloadUrl))
                     return
                 }
                 let urlString = url.absoluteString
                 print("downloads url returned: \(urlString)")
                 completion(.success(urlString))
             }
-            
         })
     }
-    
+        
     public enum StorageError: Error {
         case failedToUpload
-        case failToGetDownloadUrl
+        case failedToGetDownloadUrl
     }
 
     public func downloadURL(for path: String, completion: @escaping (Result<URL, Error>) -> Void) {
@@ -63,7 +62,7 @@ final class StorageManager {
         
         reference.downloadURL { url, error in
             guard let url = url, error == nil else {
-                completion(.failure(StorageError.failToGetDownloadUrl))
+                completion(.failure(StorageError.failedToGetDownloadUrl))
                 return
             }
             completion(.success(url))

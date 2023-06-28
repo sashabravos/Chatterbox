@@ -9,12 +9,12 @@ import UIKit
 import NVActivityIndicatorView
 import SDWebImage
 
-class NewConversationViewController: UIViewController {
+final class NewConversationViewController: UIViewController {
 
-    public var completion: (([String: String]) -> (Void))?
+    public var completion: ((SearchResult) -> (Void))?
     
     private var users = [[String: String]]()
-    private var results = [[String: String]]()
+    private var results = [SearchResult]()
 
     private var hasFetched = false
     
@@ -31,7 +31,7 @@ class NewConversationViewController: UIViewController {
     private let tableView: UITableView = {
         let table = UITableView()
         table.isHidden = true
-        table.register(NewChatCell.self, forCellReuseIdentifier: NewChatCell.identifier)
+        table.register(NewConversation.self, forCellReuseIdentifier: NewConversation.identifier)
         return table
     }()
     
@@ -86,10 +86,10 @@ extension NewConversationViewController: UITableViewDelegate, UITableViewDataSou
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let model = results[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: NewChatCell.identifier,
-                                                 for: indexPath) as! NewChatCell
-//        cell.configure(with: model)
+        let model = results[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: NewConversation.identifier,
+                                                 for: indexPath) as! NewConversation
+        cell.configure()
         return cell
     }
 
@@ -119,7 +119,8 @@ extension NewConversationViewController: UISearchBarDelegate {
         
         results.removeAll()
         spinner.startAnimating()
-        self.searchUsers(query: text)
+        
+        searchUsers(query: text)
     }
     
     func searchUsers(query: String) {
@@ -142,19 +143,36 @@ extension NewConversationViewController: UISearchBarDelegate {
     }
     
     func filterUsers(with term: String) {
-        guard hasFetched else {
+        // update the UI: either show results or show no results label
+        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String, hasFetched else {
             return
         }
+
+        let safeEmail = DatabaseManager.safeEmail(emailAddress: currentUserEmail)
         
         self.spinner.stopAnimating()
         
-        var results: [[String: String]] = self.users.filter { guard let name = $0["name"]?.lowercased() as? String else {
-            return false
-        }
+        let results: [SearchResult] = users.filter({
+            guard let email = $0["email"], email != safeEmail else {
+                return false
+            }
+            guard let name = $0["name"]?.lowercased() else {
+                return false
+            }
+
             return name.hasPrefix(term.lowercased())
-        }
+        }).compactMap({
+
+            guard let email = $0["email"],
+                let name = $0["name"] else {
+                return nil
+            }
+
+            return SearchResult(name: name, email: email)
+        })
+
         self.results = results
-        
+
         updateUI()
     }
     

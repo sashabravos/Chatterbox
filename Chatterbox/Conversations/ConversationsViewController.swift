@@ -17,9 +17,9 @@ class ConversationsViewController: UIViewController {
     
     private let tableView: UITableView = {
         let table = UITableView()
-        table.isHidden = true
-        table.register(UITableViewCell.self,
-                       forCellReuseIdentifier: "ChatCell")
+        table.isHidden = false
+        table.register(ConversationCell.self,
+                       forCellReuseIdentifier: ConversationCell.identifier)
         return table
     }()
     
@@ -33,6 +33,7 @@ class ConversationsViewController: UIViewController {
         return label
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,39 +45,37 @@ class ConversationsViewController: UIViewController {
 
         setupTableView()
         
-        fetchConversations()
-        
         title = "Chats"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
     }
+    
     
     @objc private func didTapComposeButton() {
         let newConversationVC = NewConversationViewController()
-        newConversationVC.completion = { [weak self] result  in
-            print("\(result)")
-        }
         let navVC = UINavigationController(rootViewController: newConversationVC)
         present(navVC, animated: true)
     }
-    
-    private func createNewConversation(result: [String: String]) {
-        let ChatVC = ChatViewController()
-        ChatVC.title = "Jenny Smith"
-        ChatVC.navigationItem.largeTitleDisplayMode = .never
-        navigationController?.pushViewController(ChatVC, animated: true)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
         
-        tableView.frame = view.bounds
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         validateAuth()
+    }
+    
+    
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.frame = view.bounds
+        noConversationsLabel.frame = CGRect(x: 10,
+                                            y: (view.height-100)/2,
+                                            width: view.width-20,
+                                            height: 100)
+    }
+
+    private func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     private func validateAuth() {
@@ -88,31 +87,26 @@ class ConversationsViewController: UIViewController {
             present(navVC, animated: false)
         }
     }
-    
-    private func setupTableView() {
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
-    
-    private func fetchConversations() {
-        tableView.isHidden = false
-    }
 }
 
 extension ConversationsViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath)
-        cell.textLabel?.text = "Hi"
-        cell.accessoryType = .disclosureIndicator
+        let cell = tableView.dequeueReusableCell(withIdentifier: ConversationCell.identifier, for: indexPath) as! ConversationCell
+
+        cell.configure(username: "amigo", message: "message here", email: "123123123", senderTime: "10:10", isOnline: true)
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         let ChatVC = ChatViewController()
         ChatVC.title = "Jenny Smith"
         ChatVC.navigationItem.largeTitleDisplayMode = .never

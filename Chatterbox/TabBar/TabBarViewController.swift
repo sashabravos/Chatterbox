@@ -12,20 +12,29 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .lightGray
-        
+        view.backgroundColor = .systemBackground
+        tabBar.barTintColor = #colorLiteral(red: 0.9167522788, green: 0.9167522788, blue: 0.9167522788, alpha: 1)
+
+        let contacts = ContactsViewController()
         let chats = ConversationsViewController()
         let profile = ProfileViewController()
 
         viewControllers = [
+            generateNavigationController(rootViewController: contacts,
+                                         title: "Contacts",
+                                         image: UIImage(systemName: "person.crop.circle") ?? UIImage()),
+            
             generateNavigationController(rootViewController: chats,
                                          title: "Chats",
-                                         image: UIImage(systemName: "message.fill") ?? UIImage()),
+                                         image: UIImage(systemName: "bubble.left.and.bubble.right.fill") ?? UIImage()),
             
             generateNavigationController(rootViewController: profile,
-                                         title: "Profile",
-                                         image: UIImage(systemName: "person.crop.circle") ?? UIImage())
+                                         title: "Settings",
+                                         image: UIImage(systemName: "gear") ?? UIImage())
         ]
+        
+        //  index of the controller that starts first when the application starts
+        selectedIndex = 1
     }
     
     private func generateNavigationController(rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {

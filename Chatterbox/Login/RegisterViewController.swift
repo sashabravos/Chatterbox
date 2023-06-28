@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SDWebImage
 import FirebaseAuth
 import NVActivityIndicatorView
 
@@ -109,38 +108,16 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        viewConfig()
+        subViewsConfig()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sign In",
-                                                            style: .done,
-                                                            target: self,
-                                                            action: #selector(didTapRegister))
-        
-        registerButton.addTarget(self,
-                                 action: #selector(registerButtonTapped),
-                                 for: .touchUpInside)
-        
+        // add delegates
         emailField.delegate = self
         passwordField.delegate = self
-        
-        //Add subviews
-        view.addSubview(scrollView)
-        [imageView, firstNameField, lastNameField, emailField, passwordField, registerButton, spinner].forEach {
-            scrollView.addSubview($0)
-        }
-        
-        imageView.isUserInteractionEnabled = true
-        scrollView.isUserInteractionEnabled = true
-        
-        let gesture = UITapGestureRecognizer(target: self,
-                                             action: #selector(didTapChangeProfilePic))
-
-        imageView.addGestureRecognizer(gesture)
     }
     
     @objc private func didTapChangeProfilePic() {
         presentPhotoActionSheet()
-        
     }
     
     override func viewDidLayoutSubviews() {
@@ -189,6 +166,29 @@ class RegisterViewController: UIViewController {
             spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+    }
+    
+    func viewConfig() {
+        view.backgroundColor = .systemBackground
+
+        //Add subviews
+        view.addSubview(scrollView)
+        [imageView, firstNameField, lastNameField, emailField, passwordField, registerButton, spinner].forEach {
+            scrollView.addSubview($0)
+        }
+    }
+    
+    func subViewsConfig() {
+        registerButton.addTarget(self,
+                                 action: #selector(registerButtonTapped),
+                                 for: .touchUpInside)
+        imageView.isUserInteractionEnabled = true
+        scrollView.isUserInteractionEnabled = true
+        
+        let gesture = UITapGestureRecognizer(target: self,
+                                             action: #selector(didTapChangeProfilePic))
+
+        imageView.addGestureRecognizer(gesture)
     }
     
     @objc private func registerButtonTapped() {
@@ -255,16 +255,6 @@ class RegisterViewController: UIViewController {
                         StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName) { result in
                             switch result {
                             case .success(let downloadURLString):
-                                guard let downloadURL = URL(string: downloadURLString) else {
-                                    print("Invalid download URL")
-                                    return
-                                }
-                                
-                                // Use SDWebImage to set the profile picture
-                                DispatchQueue.main.async {
-                                    strongSelf.imageView.sd_setImage(with: downloadURL, completed: nil)
-                                }
-                                
                                 UserDefaults.standard.set(downloadURLString, forKey: "profile_picture_url")
                                 print(downloadURLString)
                             case .failure(let error):
@@ -287,13 +277,6 @@ class RegisterViewController: UIViewController {
                                       style: .cancel))
         present(alert, animated: true)
     }
-    
-    @objc private func didTapRegister() {
-        let registerVC = RegisterViewController()
-        registerVC.title = "Create account"
-        navigationController?.pushViewController(registerVC, animated: true)
-    }
-    
 }
 
 extension RegisterViewController: UITextFieldDelegate {
@@ -355,7 +338,6 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
         }
         
         self.imageView.image = selectedImage
-
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

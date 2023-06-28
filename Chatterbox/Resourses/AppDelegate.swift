@@ -20,11 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        // Facebook login
-        ApplicationDelegate.shared.application(
-            application,
-            didFinishLaunchingWithOptions: launchOptions
-        )
+//        // Facebook login
+//        ApplicationDelegate.shared.application(
+//            application,
+//            didFinishLaunchingWithOptions: launchOptions
+//        )
 
         GIDSignIn.sharedInstance.restorePreviousSignIn { [weak self] user, error in
 
@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         open url: URL,
         options: [UIApplication.OpenURLOptionsKey : Any] = [:]
     ) -> Bool {
+        
         ApplicationDelegate.shared.application(
             app,
             open: url,
@@ -68,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         DatabaseManager.shared.userExists(with: email, completion: { exists in
             if !exists {
+                
                 // insert to database
                 let chatUser = ChatAppUser(
                     firstName: firstName,
@@ -76,8 +78,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 )
                 DatabaseManager.shared.insertUser(with: chatUser, completion: { success in
                     if success {
-                        // upload image
                         
+                        // upload image
                         if user.profile?.hasImage == true {
                             guard let url = user.profile?.imageURL(withDimension: 200) else {
                                 return

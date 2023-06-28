@@ -8,26 +8,29 @@
 import UIKit
 
 class ProfileCell: UITableViewCell {
-
+    
     static let identifier = "ProfileCell"
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
-        setupViews()
+        
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-
+    
     // MARK: - View Setup
-
-    private func setupViews() {
-
-        backgroundColor = .white
-
-
+    
+    public func setUp(with viewModel: ProfileViewModel) {
+        self.textLabel?.text = viewModel.title
+        switch viewModel.viewModelType {
+        case .info:
+            textLabel?.textAlignment = .left
+            selectionStyle = .none
+        case .logout:
+            textLabel?.textColor = .red
+            textLabel?.textAlignment = .center
+        }
     }
 }
-

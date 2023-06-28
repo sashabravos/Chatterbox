@@ -7,6 +7,8 @@
 
 import Foundation
 import FirebaseDatabase
+import MessageKit
+import CoreLocation
 
 final class DatabaseManager {
     
@@ -23,10 +25,26 @@ final class DatabaseManager {
     }
 }
 
+extension DatabaseManager {
+
+    /// Returns dictionary node at child path
+    public func getDataFor(path: String, completion: @escaping (Result<Any, Error>) -> Void) {
+        database.child("\(path)").observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value else {
+                completion(.failure(DatabaseError.failedToFetch))
+                return
+            }
+            completion(.success(value))
+        }
+    }
+
+}
+
 // MARK: - Account Management
 
 extension DatabaseManager {
     
+    /// if user already exists
     public func userExists(with email: String,
                            completion: @escaping ((Bool) -> Void)) {
         
@@ -114,43 +132,13 @@ extension DatabaseManager {
     // Gets all users from database
     public func getAllUsers(completion: @escaping (Result<[[String: String]], Error>) -> Void) {
         database.child("users").observeSingleEvent(of: .value, with: { snapshot in
-            guard let value = snapshot.value as? [[String: String]] else {
+            guard let usersDictionary = snapshot.value as? [[String: String]] else {
                 completion(.failure(DatabaseError.failedToFetch))
                 return
             }
             
-            completion(.success(value))
+            completion(.success(usersDictionary))
         })
-    }
-    
-    /// Get users' name from database
-    public func getUserName(completion: @escaping ((Result<String, Error>) -> Void)) {
-        database.child("users").observeSingleEvent(of: .value) { snapshot in
-            guard let users = snapshot.value as? [[String: String]] else {
-                completion(.failure(DatabaseError.failedToFetch))
-                return
-            }
-            guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
-                return
-            }
-            let safeEmail = DatabaseManager.safeEmail(emailAddress: currentUserEmail)
-            var userName: String?
-            _ = users.filter({
-                guard let email = $0["email"], email == safeEmail else {
-                    return false
-                }
-                guard let name = $0["name"] else {
-                    return false
-                }
-                userName = name
-                return true
-            })
-            guard let userName = userName else {
-                return
-            }
-            completion(.success(userName))
-        }
-
     }
     
     public enum DatabaseError: Error {
@@ -183,3 +171,4 @@ struct ChatAppUser {
         return "\(safeEmail)_profile_picture.png"
     }
 }
+
