@@ -18,25 +18,55 @@ class ProfileViewController: UIViewController {
     let tableView = UITableView()
     
     var profilePicture: UIImageView = {
-            let picture = UIImageView()
-            picture.contentMode = .scaleAspectFill
-            picture.backgroundColor = .white
-            picture.layer.borderColor = UIColor.white.cgColor
-            picture.layer.borderWidth = 3
-            picture.layer.masksToBounds = true
-            picture.layer.cornerRadius = 125
-            return picture
-        }()
+        let picture = UIImageView()
+        picture.contentMode = .scaleAspectFill
+        picture.backgroundColor = .white
+        picture.layer.borderColor = UIColor.white.cgColor
+        picture.layer.borderWidth = 3
+        picture.layer.masksToBounds = true
+        picture.layer.cornerRadius = 125
+        return picture
+    }()
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        DispatchQueue.global().async { [weak self] in
+            guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
+                return
+            }
+            
+            let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
+            
+            DatabaseManager.shared.getDataFor(path: safeEmail) { [weak self] result in
+                switch result {
+                case .success(let data):
+                    guard let userData = data as? [String: Any],
+                          let firstName = userData["first_name"] as? String,
+                          let lastName = userData["last_name"] as? String else {
+                        // Если информация о пользователе неполная или некорректная, обработайте это соответствующим образом
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        // Обновите элементы интерфейса пользователя с актуальными данными о пользователе
+                        self?.configProfileModel(with: firstName, lastName: lastName)
+                    }
+                case .failure(let error):
+                    // Обработайте ошибку получения данных о пользователе
+                    print("Failed to fetch user data: \(error)")
+                }
+            }
+        }
+    }
+    
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        
+                
         title = "Profile"
         navigationController?.navigationBar.prefersLargeTitles = true
         
         setupTableView()
-        configProfileModel()
     }
 
     override func viewDidLayoutSubviews() {
@@ -56,10 +86,11 @@ class ProfileViewController: UIViewController {
     func createTableViewHeader() -> UIView? {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.width, height: 300))
         headerView.addSubview(profilePicture)
-        headerView.backgroundColor = UIColor(patternImage: setUserImage()).withAlphaComponent(0.1)
+        headerView.backgroundColor = UIColor(patternImage: UIImage(systemName: "person")!).withAlphaComponent(0.1)
                 
         return headerView
     }
+    
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -71,7 +102,7 @@ class ProfileViewController: UIViewController {
     }
     
     func setUserImage() -> UIImage {
-        let defaultImage = UIImage(systemName: "person")!
+        let defaultImage = UIImage(systemName: "circle.fill")!.withTintColor(.systemBackground, renderingMode: .alwaysOriginal)
         // download userProfile image from Storage
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
             return defaultImage
@@ -80,10 +111,10 @@ class ProfileViewController: UIViewController {
         let fileName = safeEmail + "_profile_picture.png"
         let path = "images/" + fileName
         
-        StorageManager.shared.downloadURL(for: path, completion: { result in
+        StorageManager.shared.downloadURL(for: path, completion: { [weak self] result in
             switch result {
             case .success(let url):
-                self.profilePicture.sd_setImage(with: url, completed: nil)
+                self?.profilePicture.sd_setImage(with: url, completed: nil)
             case .failure(let error):
                 print("Failed to get download url ProfilePicture: \(error)")
             }
@@ -91,14 +122,18 @@ class ProfileViewController: UIViewController {
         return defaultImage
     }
     
-    func configProfileModel() {
+    func configProfileModel(with firstName: String, lastName: String) {
+        profilePicture.image = setUserImage() // Обновление изображения аватара пользователя
+        
+        data.removeAll() // Очистка массива data перед добавлением новых элементов
+        
         data.append(ProfileViewModel(viewModelType: .changeAvatar,
                                      title: "Change the avatar",
                                      handler: { [weak self] in
             self?.presentPhotoActionSheet()
         }))
         data.append(ProfileViewModel(viewModelType: .info,
-                                     title: "Name: \(UserDefaults.standard.value(forKey:"name") as? String ?? "Unknown")",
+                                     title: "Name: \(firstName)",
                                      handler: nil))
         data.append(ProfileViewModel(viewModelType: .info,
                                      title: "Email: \(UserDefaults.standard.value(forKey:"email") as? String ?? "Unknown")",
@@ -116,30 +151,29 @@ class ProfileViewController: UIViewController {
                                                 style: .destructive,
                                                 handler: { [weak self] _ in
                 
-                guard let strongSelf = self else {
-                    return
-                }
-                
                 UserDefaults.standard.setValue(nil, forKey: "email")
                 UserDefaults.standard.setValue(nil, forKey: "name")
                 
                 // Log Out facebook
-//                FBSDKLoginKit.LoginManager().logOut()
+    //            FBSDKLoginKit.LoginManager().logOut()
                 
                 // Google Log out
                 GIDSignIn.sharedInstance.signOut()
                 
-                do {
-                    try FirebaseAuth.Auth.auth().signOut()
+                AuthManager.shared.logoutUser { [weak self] success in
+                    guard let strongSelf = self else {
+                        return
+                    }
                     
-                    let logVC = LoginViewController()
-                    let navVC = UINavigationController(rootViewController: logVC)
-                    
-                    navVC.modalPresentationStyle = .fullScreen
-                    strongSelf.present(navVC, animated: true)
-                }
-                catch {
-                    print("Failed to log out")
+                    if success {
+                        let logVC = LoginViewController()
+                        let navVC = UINavigationController(rootViewController: logVC)
+                        
+                        navVC.modalPresentationStyle = .fullScreen
+                        strongSelf.present(navVC, animated: true)
+                    }
+                    else {
+                    }
                 }
                 
             }))
@@ -150,7 +184,10 @@ class ProfileViewController: UIViewController {
             
             strongSelf.present(actionSheet, animated: true)
         }))
+        
+        tableView.reloadData()
     }
+
 }
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
@@ -171,7 +208,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         data[indexPath.row].handler?()
     }
-
 }
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -228,4 +264,3 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         picker.dismiss(animated: true)
     }
 }
-

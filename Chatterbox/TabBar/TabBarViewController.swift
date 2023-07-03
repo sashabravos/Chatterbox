@@ -13,7 +13,6 @@ class TabBarViewController: UITabBarController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
-        tabBar.barTintColor = #colorLiteral(red: 0.9167522788, green: 0.9167522788, blue: 0.9167522788, alpha: 1)
 
         let contacts = ContactsViewController()
         let chats = ConversationsViewController()
@@ -35,7 +34,7 @@ class TabBarViewController: UITabBarController {
         
         //  index of the controller that starts first when the application starts
         // 0 - contacts, 1 - chats, 2 - profile settings
-        selectedIndex = 2
+        selectedIndex = 1
     }
     
     private func generateNavigationController(rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {

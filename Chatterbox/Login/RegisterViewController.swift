@@ -7,13 +7,8 @@
 
 import UIKit
 import FirebaseAuth
-import NVActivityIndicatorView
 
 class RegisterViewController: UIViewController {
-    
-    private let spinner = NVActivityIndicatorView(frame: .zero,
-                                                  type: .ballSpinFadeLoader,
-                                                  color: .black)
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -21,7 +16,7 @@ class RegisterViewController: UIViewController {
         return scrollView
     }()
     
-    private let imageView: UIImageView = {
+    private let profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "camera.circle")
         imageView.tintColor = .gray
@@ -126,15 +121,15 @@ class RegisterViewController: UIViewController {
         scrollView.frame = view.bounds
         
         let size = scrollView.width/3
-        imageView.frame = CGRect(x: (view.width - size)/2,
+        profileImageView.frame = CGRect(x: (view.width - size)/2,
                                  y: 20,
                                  width: size,
                                  height: size)
         
-        imageView.layer.cornerRadius = imageView.width/2
+        profileImageView.layer.cornerRadius = profileImageView.width/2
         
         firstNameField.frame = CGRect(x: 30,
-                                      y: imageView.bottom + 10,
+                                      y: profileImageView.bottom + 10,
                                       width: scrollView.width - 60,
                                       height: 52)
         
@@ -157,15 +152,6 @@ class RegisterViewController: UIViewController {
                                       y: passwordField.bottom + 10,
                                       width: scrollView.width - 60,
                                       height: 52)
-        
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate ([
-            spinner.widthAnchor.constraint(equalToConstant: 40.0),
-            spinner.heightAnchor.constraint(equalToConstant: 40.0),
-            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
     }
     
     func viewConfig() {
@@ -173,7 +159,7 @@ class RegisterViewController: UIViewController {
 
         //Add subviews
         view.addSubview(scrollView)
-        [imageView, firstNameField, lastNameField, emailField, passwordField, registerButton, spinner].forEach {
+        [profileImageView, firstNameField, lastNameField, emailField, passwordField, registerButton].forEach {
             scrollView.addSubview($0)
         }
     }
@@ -182,17 +168,16 @@ class RegisterViewController: UIViewController {
         registerButton.addTarget(self,
                                  action: #selector(registerButtonTapped),
                                  for: .touchUpInside)
-        imageView.isUserInteractionEnabled = true
+        profileImageView.isUserInteractionEnabled = true
         scrollView.isUserInteractionEnabled = true
         
         let gesture = UITapGestureRecognizer(target: self,
                                              action: #selector(didTapChangeProfilePic))
 
-        imageView.addGestureRecognizer(gesture)
+        profileImageView.addGestureRecognizer(gesture)
     }
     
     @objc private func registerButtonTapped() {
-        
         [firstNameField, lastNameField, emailField, passwordField].forEach {
             $0.resignFirstResponder()
         }
@@ -204,69 +189,29 @@ class RegisterViewController: UIViewController {
               !firstName.isEmpty,
               !lastName.isEmpty,
               !email.isEmpty,
-              !password.isEmpty, password.count >= 6 else {
+              !password.isEmpty,
+              password.count >= 6 else {
             alertUserLoginError()
             return
         }
         
-            spinner.startAnimating()
+        showSpinner()
         
-        //Firebase Sign In
-        DatabaseManager.shared.userExists(with: email, completion: { [weak self] exists in
+        let image = profileImageView.image
+        
+        AuthManager.shared.registerUser(firstName: firstName, lastName: lastName, email: email, password: password, image: image) { [weak self] success in
             guard let strongSelf = self else {
                 return
             }
             
-            DispatchQueue.main.async {
-                strongSelf.spinner.stopAnimating()
-            }
+            strongSelf.hideSpinner()
             
-            guard !exists else {
-                // user already exists
-                strongSelf.alertUserLoginError(message: "Looks like a user account for that email address already exists")
-                return
-            }
-            
-            
-            Auth.auth().createUser(withEmail: email, password: password, completion: { authResults, error in
-                
-                if let error = error, authResults != nil {
-                        print("Error creating user:", error.localizedDescription)
-                        strongSelf.alertUserLoginError(message: "Failed to create user. Please try again later.")
-                        return
-                    }
-                
-                UserDefaults.standard.setValue(email, forKey: "email")
-                UserDefaults.standard.setValue("\(firstName) \(lastName)", forKey: "name")
-                
-                let chatUser =  ChatAppUser(firstName: firstName,
-                                            lastName: lastName,
-                                            emailAddress: email)
-                
-                DatabaseManager.shared.insertUser(with: chatUser) { success in
-                    if success {
-                        //upload image
-                        guard let image = strongSelf.imageView.image,
-                              let data = image.pngData() else {
-                            return
-                        }
-                        
-                        let fileName = chatUser.profilePictureFileName
-                        StorageManager.shared.uploadProfilePicture(with: data, fileName: fileName) { result in
-                            switch result {
-                            case .success(let downloadURLString):
-                                UserDefaults.standard.set(downloadURLString, forKey: "profile_picture_url")
-                                print(downloadURLString)
-                            case .failure(let error):
-                                print("Storage manager error: \(error)")
-                            }
-                        }
-                    }
-                }
-                
+            if success {
                 strongSelf.navigationController?.dismiss(animated: true)
-            })
-        })
+            } else {
+                strongSelf.alertUserLoginError(message: "Failed to create user. Please try again later.")
+            }
+        }
     }
     
     func alertUserLoginError(message: String = "Please enter all information to create a new account.") {
@@ -337,7 +282,7 @@ extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationC
             return
         }
         
-        self.imageView.image = selectedImage
+        self.profileImageView.image = selectedImage
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

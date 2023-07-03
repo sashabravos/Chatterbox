@@ -24,7 +24,7 @@
 		036749542A471021001CFFBF /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 036749532A471021001CFFBF /* RealmSwift */; };
 		036749562A477304001CFFBF /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036749552A477304001CFFBF /* ChatViewController.swift */; };
 		036749582A478620001CFFBF /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036749572A478620001CFFBF /* StorageManager.swift */; };
-		0367495B2A48F181001CFFBF /* NewConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367495A2A48F181001CFFBF /* NewConversation.swift */; };
+		0367495B2A48F181001CFFBF /* NewConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367495A2A48F181001CFFBF /* NewConversationCell.swift */; };
 		036749662A4B0C0B001CFFBF /* NotificationExstensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036749652A4B0C0B001CFFBF /* NotificationExstensions.swift */; };
 		0367496C2A4B61CD001CFFBF /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367496B2A4B61CD001CFFBF /* ChatModel.swift */; };
 		036749702A4B61FF001CFFBF /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367496F2A4B61FF001CFFBF /* ProfileViewModel.swift */; };
@@ -34,6 +34,9 @@
 		03DE3F922A4C3704009A7060 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE3F912A4C3704009A7060 /* ContactCell.swift */; };
 		03DE3F982A4C60B1009A7060 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE3F972A4C60B0009A7060 /* SearchResults.swift */; };
 		03DE3F9A2A4C8C54009A7060 /* ContactModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE3F992A4C8C54009A7060 /* ContactModel.swift */; };
+		03DE3F9E2A4D98AC009A7060 /* ChatUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE3F9D2A4D98AC009A7060 /* ChatUserModel.swift */; };
+		03DE3FA02A4D9963009A7060 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE3F9F2A4D9963009A7060 /* AuthManager.swift */; };
+		03DE3FA22A4D9DA7009A7060 /* UIViewController+Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE3FA12A4D9DA7009A7060 /* UIViewController+Spinner.swift */; };
 		F22D9A07F82AF8438F61686D /* Pods_Chatterbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9EB5082034782ED589D06D /* Pods_Chatterbox.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +59,7 @@
 		0367494E2A44AEE9001CFFBF /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		036749552A477304001CFFBF /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		036749572A478620001CFFBF /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
-		0367495A2A48F181001CFFBF /* NewConversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversation.swift; sourceTree = "<group>"; };
+		0367495A2A48F181001CFFBF /* NewConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationCell.swift; sourceTree = "<group>"; };
 		036749652A4B0C0B001CFFBF /* NotificationExstensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExstensions.swift; sourceTree = "<group>"; };
 		0367496B2A4B61CD001CFFBF /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		0367496F2A4B61FF001CFFBF /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -66,6 +69,9 @@
 		03DE3F912A4C3704009A7060 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
 		03DE3F972A4C60B0009A7060 /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
 		03DE3F992A4C8C54009A7060 /* ContactModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactModel.swift; sourceTree = "<group>"; };
+		03DE3F9D2A4D98AC009A7060 /* ChatUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUserModel.swift; sourceTree = "<group>"; };
+		03DE3F9F2A4D9963009A7060 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		03DE3FA12A4D9DA7009A7060 /* UIViewController+Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Spinner.swift"; sourceTree = "<group>"; };
 		1A9EB5082034782ED589D06D /* Pods_Chatterbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatterbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E641F0DE77CCFA3F0C1F7BDD /* Pods-Chatterbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatterbox.debug.xcconfig"; path = "Target Support Files/Pods-Chatterbox/Pods-Chatterbox.debug.xcconfig"; sourceTree = "<group>"; };
 		F8B396A6F07553CFB768096F /* Pods-Chatterbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatterbox.release.xcconfig"; path = "Target Support Files/Pods-Chatterbox/Pods-Chatterbox.release.xcconfig"; sourceTree = "<group>"; };
@@ -105,16 +111,15 @@
 		0367491B2A43553F001CFFBF /* Chatterbox */ = {
 			isa = PBXGroup;
 			children = (
-				036749342A435C1F001CFFBF /* Resourses */,
+				0367491C2A43553F001CFFBF /* AppDelegate.swift */,
+				0367491E2A43553F001CFFBF /* SceneDelegate.swift */,
 				036749632A4A3A30001CFFBF /* Databases */,
-				036749642A4A3A5D001CFFBF /* Extensions */,
 				036749422A436D35001CFFBF /* Login */,
-				0367494D2A44AED5001CFFBF /* Profile */,
-				036749712A4B6281001CFFBF /* Conversations */,
-				036749592A48F14D001CFFBF /* NewConversation */,
-				03DE3F8F2A4C3528009A7060 /* Chat */,
 				03DE3F902A4C356A009A7060 /* Contacts */,
+				03DE3F8F2A4C3528009A7060 /* Chat */,
+				0367494D2A44AED5001CFFBF /* Profile */,
 				036749302A435BEA001CFFBF /* TabBar */,
+				036749642A4A3A5D001CFFBF /* Extensions */,
 				036749792A4C0F1A001CFFBF /* PropertyLists */,
 				0367497A2A4C0F98001CFFBF /* SupportFiles */,
 			);
@@ -129,18 +134,10 @@
 			path = TabBar;
 			sourceTree = "<group>";
 		};
-		036749342A435C1F001CFFBF /* Resourses */ = {
-			isa = PBXGroup;
-			children = (
-				0367491C2A43553F001CFFBF /* AppDelegate.swift */,
-				0367491E2A43553F001CFFBF /* SceneDelegate.swift */,
-			);
-			path = Resourses;
-			sourceTree = "<group>";
-		};
 		036749422A436D35001CFFBF /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				03DE3FA32A4DA55E009A7060 /* FirebaseLogin */,
 				036749362A435D81001CFFBF /* LoginViewController.swift */,
 				036749382A435DA1001CFFBF /* RegisterViewController.swift */,
 			);
@@ -160,7 +157,7 @@
 		036749592A48F14D001CFFBF /* NewConversation */ = {
 			isa = PBXGroup;
 			children = (
-				0367495A2A48F181001CFFBF /* NewConversation.swift */,
+				0367495A2A48F181001CFFBF /* NewConversationCell.swift */,
 				0367493E2A435DEF001CFFBF /* NewConversationViewController.swift */,
 				03DE3F972A4C60B0009A7060 /* SearchResults.swift */,
 			);
@@ -170,6 +167,7 @@
 		036749632A4A3A30001CFFBF /* Databases */ = {
 			isa = PBXGroup;
 			children = (
+				03DE3F9D2A4D98AC009A7060 /* ChatUserModel.swift */,
 				036749572A478620001CFFBF /* StorageManager.swift */,
 				036749492A4467DA001CFFBF /* DatabaseManager.swift */,
 			);
@@ -182,6 +180,7 @@
 				036749432A437187001CFFBF /* UIViewExstensions.swift */,
 				036749652A4B0C0B001CFFBF /* NotificationExstensions.swift */,
 				036749772A4C0E85001CFFBF /* MessageKindExstensions.swift */,
+				03DE3FA12A4D9DA7009A7060 /* UIViewController+Spinner.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -216,6 +215,8 @@
 		03DE3F8F2A4C3528009A7060 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				036749712A4B6281001CFFBF /* Conversations */,
+				036749592A48F14D001CFFBF /* NewConversation */,
 				0367496B2A4B61CD001CFFBF /* ChatModel.swift */,
 				036749552A477304001CFFBF /* ChatViewController.swift */,
 			);
@@ -230,6 +231,14 @@
 				03DE3F8D2A4C2D79009A7060 /* ContactsViewController.swift */,
 			);
 			path = Contacts;
+			sourceTree = "<group>";
+		};
+		03DE3FA32A4DA55E009A7060 /* FirebaseLogin */ = {
+			isa = PBXGroup;
+			children = (
+				03DE3F9F2A4D9963009A7060 /* AuthManager.swift */,
+			);
+			path = FirebaseLogin;
 			sourceTree = "<group>";
 		};
 		C4C4C13BCA5082DE2030DBC9 /* Frameworks */ = {
@@ -373,7 +382,9 @@
 				0367494F2A44AEE9001CFFBF /* ProfileCell.swift in Sources */,
 				036749372A435D81001CFFBF /* LoginViewController.swift in Sources */,
 				0367496C2A4B61CD001CFFBF /* ChatModel.swift in Sources */,
+				03DE3FA02A4D9963009A7060 /* AuthManager.swift in Sources */,
 				0367494A2A4467DA001CFFBF /* DatabaseManager.swift in Sources */,
+				03DE3FA22A4D9DA7009A7060 /* UIViewController+Spinner.swift in Sources */,
 				03DE3F9A2A4C8C54009A7060 /* ContactModel.swift in Sources */,
 				036749782A4C0E85001CFFBF /* MessageKindExstensions.swift in Sources */,
 				036749392A435DA1001CFFBF /* RegisterViewController.swift in Sources */,
@@ -381,7 +392,8 @@
 				0367493F2A435DEF001CFFBF /* NewConversationViewController.swift in Sources */,
 				0367494C2A44A335001CFFBF /* TabBarViewController.swift in Sources */,
 				03DE3F982A4C60B1009A7060 /* SearchResults.swift in Sources */,
-				0367495B2A48F181001CFFBF /* NewConversation.swift in Sources */,
+				03DE3F9E2A4D98AC009A7060 /* ChatUserModel.swift in Sources */,
+				0367495B2A48F181001CFFBF /* NewConversationCell.swift in Sources */,
 				036749212A43553F001CFFBF /* ConversationsViewController.swift in Sources */,
 				036749732A4B62A2001CFFBF /* ConversationCell.swift in Sources */,
 				036749442A437187001CFFBF /* UIViewExstensions.swift in Sources */,

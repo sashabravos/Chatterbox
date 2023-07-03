@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import MessageKit
 
 class ContactsViewController: UIViewController {
     
+    public var completion: ((Contacts) -> (Void))?
+
     var tableView = UITableView()
     var contactsData = [[String: String]]()
     private var contacts = [Contacts]()
@@ -60,16 +63,28 @@ class ContactsViewController: UIViewController {
             }
             return Contacts(name: name, email: email)
         })
-        self.contacts = contacts
+        self.contacts = contacts.sorted(by: { $0.name < $1.name }) // Сортировка по имени
+        
         tableView.reloadData()
     }
     
     @objc private func didTapComposeButton() {
         let newConversationVC = NewConversationViewController()
+        newConversationVC.completion = {[weak self] result in
+            self?.createNewChat(with: result)
+        }
         let navVC = UINavigationController(rootViewController: newConversationVC)
         present(navVC, animated: true)
     }
     
+    func createNewChat(with contact: SearchResult) {
+        let chatViewController = ChatViewController(with: contact.email)
+        chatViewController.isNewConversation = true
+        chatViewController.title = contact.name
+        chatViewController.sender = Sender(photoURL: "https://www.ethnomir.ru/upload/medialibrary/316/sezam2.jpg", senderId: "unique_sender_id", displayName: "Your Name")
+        
+        navigationController?.pushViewController(chatViewController, animated: true)
+    }
 }
 
 extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -91,10 +106,37 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        tableView.deselectRow(at: indexPath, animated: true)
+//        // open chat with selected user
+//        let selectedContact = contacts[indexPath.row]
+//        openChat(with: selectedContact)
+//    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        // open chat with selected user
-        print("Start chat with: \(contacts[indexPath.row].name)")
+        
+        let selectedContact = contacts[indexPath.row]
+        print(selectedContact)
+        // Создайте экземпляр ChatViewController
+        let chatViewController = ChatViewController(with: selectedContact.email)
 
+        // Установите заголовок чата на имя выбранного пользователя
+        chatViewController.title = selectedContact.name
+
+        // Установите отправителя для чата
+        let sender = Sender(photoURL: "https://www.ethnomir.ru/upload/medialibrary/316/sezam2.jpg",
+                            senderId: "25",
+                            displayName: "Your Name")
+        chatViewController.sender = sender
+
+        // Установите другие настройки, такие как база данных, идентификаторы разговоров и т.д.,
+        // чтобы связать чат с выбранным пользователем
+
+        navigationController?.pushViewController(chatViewController, animated: true)
+//        // start conversation
+//        let selectedContact = contacts[indexPath.row]
+//        dismiss(animated: true) { [weak self] in
+//            self?.completion?(selectedContact)
+        }
     }
-}
+

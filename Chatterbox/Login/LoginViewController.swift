@@ -6,16 +6,10 @@
 //
 
 import UIKit
-import FirebaseAuth
 import FBSDKLoginKit
 import GoogleSignIn
-import NVActivityIndicatorView
 
 class LoginViewController: UIViewController {
-    
-    private let spinner = NVActivityIndicatorView(frame: .zero,
-                                                  type: .ballSpinFadeLoader,
-                                                  color: .black)
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -190,14 +184,6 @@ class LoginViewController: UIViewController {
 //                                         width: scrollView.width - 60,
 //                                         height: 52)
         
-        spinner.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint.activate ([
-            spinner.widthAnchor.constraint(equalToConstant: 40.0),
-            spinner.heightAnchor.constraint(equalToConstant: 40.0),
-            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-        ])
     }
     
     private func addLoginObserver() {
@@ -229,11 +215,13 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .systemBackground
         //Add subviews
         view.addSubview(scrollView)
-        [titleLabel, imageView, emailField, passwordField, loginButton, noAccountLabel, signUpButton, googleLogInButton, spinner].forEach {
+        [titleLabel, imageView, emailField, passwordField, loginButton, noAccountLabel, signUpButton, googleLogInButton].forEach {
             scrollView.addSubview($0)
         }
+        
+        //With FBbutton
 //        view.addSubview(scrollView)
-//        [titleLabel, imageView, emailField, passwordField, loginButton, noAccountLabel, signUpButton, facebookLoginButton, googleLogInButton, spinner].forEach {
+//        [titleLabel, profileImageView, emailField, passwordField, loginButton, noAccountLabel, signUpButton, facebookLoginButton, googleLogInButton].forEach {
 //            scrollView.addSubview($0)
 //        }
     }
@@ -250,33 +238,21 @@ class LoginViewController: UIViewController {
             return
         }
         
-        spinner.startAnimating()
-        //Firebase login
-        Auth.auth().signIn(withEmail: email,
-                           password: password,
-                           completion: { [weak self] authResults, error in
-            
+        showSpinner()
+        
+        AuthManager.shared.loginUser(withEmail: email, password: password) { [weak self] success in
             guard let strongSelf = self else {
                 return
             }
             
-            DispatchQueue.main.async {
-                strongSelf.spinner.stopAnimating()
+            strongSelf.hideSpinner()
+            
+            if success {
+                strongSelf.navigationController?.dismiss(animated: true)
+            } else {
+                print("Failed to log in user")
             }
-            
-            guard let result = authResults, error == nil else {
-                print("Failed to log in user with email: \(email)")
-                return
-            }
-            
-            let user = result.user
-            
-            UserDefaults.standard.set(email, forKey: "email")
-            
-            print("Logged user: \(user)")
-            strongSelf.navigationController?.dismiss(animated: true)
-        })
-        
+        }
     }
     
     func alertUserLoginError() {
