@@ -37,6 +37,7 @@
 		03DE3F9E2A4D98AC009A7060 /* ChatUserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE3F9D2A4D98AC009A7060 /* ChatUserModel.swift */; };
 		03DE3FA02A4D9963009A7060 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE3F9F2A4D9963009A7060 /* AuthManager.swift */; };
 		03DE3FA22A4D9DA7009A7060 /* UIViewController+Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE3FA12A4D9DA7009A7060 /* UIViewController+Spinner.swift */; };
+		03DE3FA72A52D389009A7060 /* ConversationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE3FA62A52D389009A7060 /* ConversationModel.swift */; };
 		F22D9A07F82AF8438F61686D /* Pods_Chatterbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9EB5082034782ED589D06D /* Pods_Chatterbox.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 		03DE3F9D2A4D98AC009A7060 /* ChatUserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUserModel.swift; sourceTree = "<group>"; };
 		03DE3F9F2A4D9963009A7060 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		03DE3FA12A4D9DA7009A7060 /* UIViewController+Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Spinner.swift"; sourceTree = "<group>"; };
+		03DE3FA62A52D389009A7060 /* ConversationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationModel.swift; sourceTree = "<group>"; };
 		1A9EB5082034782ED589D06D /* Pods_Chatterbox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatterbox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E641F0DE77CCFA3F0C1F7BDD /* Pods-Chatterbox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatterbox.debug.xcconfig"; path = "Target Support Files/Pods-Chatterbox/Pods-Chatterbox.debug.xcconfig"; sourceTree = "<group>"; };
 		F8B396A6F07553CFB768096F /* Pods-Chatterbox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatterbox.release.xcconfig"; path = "Target Support Files/Pods-Chatterbox/Pods-Chatterbox.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 		036749712A4B6281001CFFBF /* Conversations */ = {
 			isa = PBXGroup;
 			children = (
+				03DE3FA62A52D389009A7060 /* ConversationModel.swift */,
 				036749722A4B62A2001CFFBF /* ConversationCell.swift */,
 				036749202A43553F001CFFBF /* ConversationsViewController.swift */,
 			);
@@ -389,6 +392,7 @@
 				036749782A4C0E85001CFFBF /* MessageKindExstensions.swift in Sources */,
 				036749392A435DA1001CFFBF /* RegisterViewController.swift in Sources */,
 				036749702A4B61FF001CFFBF /* ProfileViewModel.swift in Sources */,
+				03DE3FA72A52D389009A7060 /* ConversationModel.swift in Sources */,
 				0367493F2A435DEF001CFFBF /* NewConversationViewController.swift in Sources */,
 				0367494C2A44A335001CFFBF /* TabBarViewController.swift in Sources */,
 				03DE3F982A4C60B1009A7060 /* SearchResults.swift in Sources */,

@@ -61,7 +61,7 @@ class ContactsViewController: UIViewController {
             guard let email = data["email"], let name = data["name"] else {
                 return nil
             }
-            return Contacts(name: name, email: email)
+            return Contacts(name: name, otherUserEmail: email)
         })
         self.contacts = contacts.sorted(by: { $0.name < $1.name }) // Сортировка по имени
         
@@ -78,11 +78,10 @@ class ContactsViewController: UIViewController {
     }
     
     func createNewChat(with contact: SearchResult) {
-        let chatViewController = ChatViewController(with: contact.email)
+        let chatViewController = ChatViewController(with: contact.email, id: nil)
         chatViewController.isNewConversation = true
         chatViewController.title = contact.name
-        chatViewController.sender = Sender(photoURL: "https://www.ethnomir.ru/upload/medialibrary/316/sezam2.jpg", senderId: "unique_sender_id", displayName: "Your Name")
-        
+        chatViewController.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(chatViewController, animated: true)
     }
 }
@@ -101,7 +100,7 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: ContactCell.identifier, for: indexPath) as! ContactCell
 
         let info = contacts[indexPath.row]
-        cell.configure(username: info.name, email: info.email)
+        cell.configure(username: info.name, email: info.otherUserEmail)
 
         return cell
     }
@@ -118,7 +117,7 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
         let selectedContact = contacts[indexPath.row]
         print(selectedContact)
         // Создайте экземпляр ChatViewController
-        let chatViewController = ChatViewController(with: selectedContact.email)
+        let chatViewController = ChatViewController(with: selectedContact.otherUserEmail, id: nil)
 
         // Установите заголовок чата на имя выбранного пользователя
         chatViewController.title = selectedContact.name
@@ -127,7 +126,6 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
         let sender = Sender(photoURL: "https://www.ethnomir.ru/upload/medialibrary/316/sezam2.jpg",
                             senderId: "25",
                             displayName: "Your Name")
-        chatViewController.sender = sender
 
         // Установите другие настройки, такие как база данных, идентификаторы разговоров и т.д.,
         // чтобы связать чат с выбранным пользователем

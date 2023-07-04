@@ -9,5 +9,5 @@ import Foundation
 
 struct Contacts {
     let name: String
-    let email: String
+    let otherUserEmail: String
 }

@@ -227,26 +227,26 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func loginButtonTapped() {
-        
+
         [emailField, passwordField].forEach {
             $0.resignFirstResponder()
         }
-        
+
         guard let email = emailField.text, let password = passwordField.text,
               !email.isEmpty, !password.isEmpty, password.count >= 6 else {
             alertUserLoginError()
             return
         }
-        
+
         showSpinner()
-        
+
         AuthManager.shared.loginUser(withEmail: email, password: password) { [weak self] success in
             guard let strongSelf = self else {
                 return
             }
-            
+
             strongSelf.hideSpinner()
-            
+
             if success {
                 strongSelf.navigationController?.dismiss(animated: true)
             } else {
