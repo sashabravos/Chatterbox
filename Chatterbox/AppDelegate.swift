@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-//        // Facebook login
+        // Facebook login
 //        ApplicationDelegate.shared.application(
 //            application,
 //            didFinishLaunchingWithOptions: launchOptions
@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if !exists {
                 
                 // insert to database
-                let chatUser = ChatAppUser(
+                let chatUser = ChatterboxUser(
                     firstName: firstName,
                     lastName: lastName,
                     emailAddress: email

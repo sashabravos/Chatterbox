@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreLocation
 import MessageKit
 
 struct Message: MessageType {

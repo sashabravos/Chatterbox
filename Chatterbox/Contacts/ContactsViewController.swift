@@ -95,46 +95,24 @@ extension ContactsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contacts.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ContactCell.identifier, for: indexPath) as! ContactCell
-
+        
         let info = contacts[indexPath.row]
         cell.configure(username: info.name, email: info.otherUserEmail)
-
+        
         return cell
     }
-
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        // open chat with selected user
-//        let selectedContact = contacts[indexPath.row]
-//        openChat(with: selectedContact)
-//    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let contact = contacts[indexPath.row]
         
-        let selectedContact = contacts[indexPath.row]
-        print(selectedContact)
-        // Создайте экземпляр ChatViewController
-        let chatViewController = ChatViewController(with: selectedContact.otherUserEmail, id: nil)
-
-        // Установите заголовок чата на имя выбранного пользователя
-        chatViewController.title = selectedContact.name
-
-        // Установите отправителя для чата
-        let sender = Sender(photoURL: "https://www.ethnomir.ru/upload/medialibrary/316/sezam2.jpg",
-                            senderId: "25",
-                            displayName: "Your Name")
-
-        // Установите другие настройки, такие как база данных, идентификаторы разговоров и т.д.,
-        // чтобы связать чат с выбранным пользователем
-
-        navigationController?.pushViewController(chatViewController, animated: true)
-//        // start conversation
-//        let selectedContact = contacts[indexPath.row]
-//        dismiss(animated: true) { [weak self] in
-//            self?.completion?(selectedContact)
-        }
+        let ChatVC = ChatViewController(with: contact.otherUserEmail, id: nil)
+        ChatVC.title = contact.name
+        ChatVC.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(ChatVC, animated: true)
     }
+}
 
