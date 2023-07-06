@@ -8,25 +8,21 @@
 
 1. Авторизация с помощью Google, Facebook, Email
    
-<img src="ReadmeAsset/gif/googleLogIn.gif" width="200" height="400">
-<img src="ReadmeAsset/gif/danaLogin.gif" width="400" height="400">
-<img src="ReadmeAsset/gif/logOut.gif" width="200" height="400">
+<img src="ReadmeAssets/gif/googleLogin.gif" width="200" height="400"> <img src="ReadmeAssets/gif/danaLogin.gif" width="200" height="400"> <img src="ReadmeAssets/gif/logOut.gif" width="200" height="400">
 
 2. Мгновенный обмен сообщениями, поиск по списку пользователей
  
-<img src="ReadmeAsset/gif/chatWithHomer.gif" width="400" height="400">
-<img src="ReadmeAsset/gif/meAndDana.gif" width="400" height="400">
+<img src="ReadmeAssets/gif/chatWithHomer.gif" width="400" height="400">
+<img src="ReadmeAssets/gif/meAndDana.gif" width="400" height="400">
 
 3. Отображение списка всех зарегистрированных пользователей
  
-<img src="ReadmeAsset/png/contactsScreenshot.PNG" width="200" height="400">
+<img src="ReadmeAssets/png/contactsScreenshot.PNG" width="200" height="400">
 
 4. Отображение списка диалогов
  
-<img src="ReadmeAsset/png/chatsScreenshot.PNG" width="200" height="400">
-<img src="ReadmeAsset/png/chatsScreenshot2.png" width="200" height="400">
+<img src="ReadmeAssets/png/chatsScreenshot.PNG" width="200" height="400"> <img src="ReadmeAssets/png/chatsScreenshot2.png" width="200" height="400">
 
 5. Возможность добавить аватар и изменить его при дальнейшем использовании
  
-<img src="ReadmeAsset/gif/installTheAvatar.gif" width="200" height="400">
-<img src="ReadmeAsset/gif/changeTheAvatar.gif" width="400" height="400">
+<img src="ReadmeAssets/gif/installTheAvatar.gif" width="200" height="400"> <img src="ReadmeAssets/gif/changeTheAvatar.gif" width="400" height="400">
