@@ -29,6 +29,8 @@
 		036749702A4B61FF001CFFBF /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0367496F2A4B61FF001CFFBF /* ProfileViewModel.swift */; };
 		036749732A4B62A2001CFFBF /* ConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036749722A4B62A2001CFFBF /* ConversationCell.swift */; };
 		036749782A4C0E85001CFFBF /* MessageKindExstensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036749772A4C0E85001CFFBF /* MessageKindExstensions.swift */; };
+		03D252C12A84FE22004126AF /* AppDelegateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D252C02A84FE22004126AF /* AppDelegateExtension.swift */; };
+		03D252C32A850568004126AF /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D252C22A850568004126AF /* NotificationManager.swift */; };
 		03DE3F8E2A4C2D79009A7060 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE3F8D2A4C2D79009A7060 /* ContactsViewController.swift */; };
 		03DE3F922A4C3704009A7060 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE3F912A4C3704009A7060 /* ContactCell.swift */; };
 		03DE3F982A4C60B1009A7060 /* SearchResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03DE3F972A4C60B0009A7060 /* SearchResults.swift */; };
@@ -66,6 +68,8 @@
 		0367496F2A4B61FF001CFFBF /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		036749722A4B62A2001CFFBF /* ConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCell.swift; sourceTree = "<group>"; };
 		036749772A4C0E85001CFFBF /* MessageKindExstensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageKindExstensions.swift; sourceTree = "<group>"; };
+		03D252C02A84FE22004126AF /* AppDelegateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateExtension.swift; sourceTree = "<group>"; };
+		03D252C22A850568004126AF /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		03DE3F8D2A4C2D79009A7060 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		03DE3F912A4C3704009A7060 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
 		03DE3F972A4C60B0009A7060 /* SearchResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResults.swift; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 			children = (
 				0367491C2A43553F001CFFBF /* AppDelegate.swift */,
 				0367491E2A43553F001CFFBF /* SceneDelegate.swift */,
+				03D252BF2A84FE01004126AF /* Notifications */,
 				036749632A4A3A30001CFFBF /* Databases */,
 				036749422A436D35001CFFBF /* Login */,
 				03DE3F902A4C356A009A7060 /* Contacts */,
@@ -214,6 +219,15 @@
 				036749252A435541001CFFBF /* Assets.xcassets */,
 			);
 			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		03D252BF2A84FE01004126AF /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				03D252C02A84FE22004126AF /* AppDelegateExtension.swift */,
+				03D252C22A850568004126AF /* NotificationManager.swift */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		03DE3F8F2A4C3528009A7060 /* Chat */ = {
@@ -393,6 +407,7 @@
 				036749702A4B61FF001CFFBF /* ProfileViewModel.swift in Sources */,
 				03DE3FA72A52D389009A7060 /* ConversationModel.swift in Sources */,
 				03DE3FA92A5599FF009A7060 /* MessageManager.swift in Sources */,
+				03D252C32A850568004126AF /* NotificationManager.swift in Sources */,
 				0367493F2A435DEF001CFFBF /* NewConversationViewController.swift in Sources */,
 				0367494C2A44A335001CFFBF /* TabBarViewController.swift in Sources */,
 				03DE3F982A4C60B1009A7060 /* SearchResults.swift in Sources */,
@@ -408,6 +423,7 @@
 				036749582A478620001CFFBF /* StorageManager.swift in Sources */,
 				036749662A4B0C0B001CFFBF /* NotificationExstensions.swift in Sources */,
 				0367491F2A43553F001CFFBF /* SceneDelegate.swift in Sources */,
+				03D252C12A84FE22004126AF /* AppDelegateExtension.swift in Sources */,
 				03DE3F8E2A4C2D79009A7060 /* ContactsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
