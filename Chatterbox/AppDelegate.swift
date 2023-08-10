@@ -10,16 +10,28 @@ import FirebaseCore
 import FirebaseAuth
 import FBSDKCoreKit
 import GoogleSignIn
+import UserNotifications
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     public var signInConfig: GIDConfiguration?
+    private let notificationCenter = UNUserNotificationCenter.current()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
         
+        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            guard granted else { return }
+            self.notificationCenter.getNotificationSettings { settings in
+                guard settings.authorizationStatus == .authorized else { return }
+            }
+        }
+        
+        notificationCenter.delegate = self
+        NotificationManager.shared.sendNotification()
+                
         // Facebook login
 //        ApplicationDelegate.shared.application(
 //            application,
@@ -126,5 +138,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
 }
-
-
